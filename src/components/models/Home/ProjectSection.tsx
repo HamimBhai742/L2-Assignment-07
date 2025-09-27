@@ -1,0 +1,88 @@
+/* eslint-disable react/no-unescaped-entities */
+import Link from 'next/link';
+import React from 'react';
+
+export default function ProjectSection() {
+  return (
+    <section className='py-20 px-4 sm:px-6 lg:px-8 bg-gray-50'>
+      <div className='max-w-7xl mx-auto'>
+        <div className='text-center mb-16'>
+          <h2 className='text-3xl sm:text-4xl font-bold text-gray-900 mb-4'>
+            Featured Projects
+          </h2>
+          <p className='text-xl text-gray-600'>
+            Some of my recent work that I'm proud of
+          </p>
+        </div>
+        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12'>
+          {[
+            {
+              title: 'E-Commerce Platform',
+              tech: ['Next.js', 'Stripe', 'Prisma'],
+              desc: 'Full-stack e-commerce solution with payment integration',
+            },
+            {
+              title: 'Task Management App',
+              tech: ['React', 'Node.js', 'MongoDB'],
+              desc: 'Collaborative project management tool with real-time updates',
+            },
+            {
+              title: 'Portfolio Website',
+              tech: ['Next.js', 'Tailwind', 'Framer'],
+              desc: 'Modern portfolio with smooth animations and responsive design',
+            },
+          ].map((project, index) => (
+            <div
+              key={index}
+              className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow'
+            >
+              <div className='relative h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center'>
+                <span className='text-white text-4xl font-bold'>
+                  {project.title.charAt(0)}
+                </span>
+              </div>
+              <div className='p-6'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-2'>
+                  {project.title}
+                </h3>
+                <p className='text-gray-600 mb-4'>{project.desc}</p>
+                <div className='flex flex-wrap gap-2 mb-4'>
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className='px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full'
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className='flex gap-4'>
+                  <Link
+                    href='#'
+                    className='text-blue-600 hover:text-blue-700 font-medium'
+                  >
+                    Live Demo
+                  </Link>
+                  <Link
+                    href='#'
+                    className='text-gray-600 hover:text-gray-700 font-medium'
+                  >
+                    Source Code
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className='text-center'>
+          <Link
+            href='/projects'
+            className='bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors'
+          >
+            View All Projects
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
