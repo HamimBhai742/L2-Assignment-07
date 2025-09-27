@@ -7,15 +7,15 @@ export default function Herosection() {
     <section className='relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16'>
       <div className='max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center'>
         <div className='text-center lg:text-left'>
-          <h1 className='text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6'>
-            Hi, I'm <span className='text-blue-600'>John Doe</span>
+          <h1 className='text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6'>
+            Hi, I'm <span className='text-blue-600 dark:text-blue-400'>John Doe</span>
           </h1>
           <div className='h-16 mb-8'>
-            <p className='text-xl sm:text-2xl text-gray-600 transition-all duration-500'>
+            <p className='text-xl sm:text-2xl text-gray-600 dark:text-gray-300 transition-all duration-500'>
               Full Stack Developer
             </p>
           </div>
-          <p className='text-lg text-gray-600 mb-8 max-w-2xl'>
+          <p className='text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl'>
             Passionate about creating digital experiences that make a
             difference. I build modern web applications with clean code and
             beautiful design.
@@ -29,7 +29,7 @@ export default function Herosection() {
             </Link>
             <Link
               href='/contact'
-              className='border border-gray-300 text-gray-700 px-8 py-3 rounded-lg hover:bg-gray-50 transition-colors'
+              className='border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-8 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors'
             >
               Get In Touch
             </Link>

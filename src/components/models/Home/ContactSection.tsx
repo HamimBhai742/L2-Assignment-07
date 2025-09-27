@@ -4,9 +4,9 @@ import React from 'react';
 
 export default function ContactSection() {
   return (
-    <section className='py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white'>
+    <section className='py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 dark:bg-gray-950 text-white'>
       <div className='max-w-7xl mx-auto text-center'>
-        <h2 className='text-3xl sm:text-4xl font-bold mb-4'>
+        <h2 className='text-3xl sm:text-4xl font-bold text-white mb-4'>
           Let's Work Together
         </h2>
         <p className='text-xl text-gray-300 mb-8 max-w-2xl mx-auto'>
@@ -22,7 +22,7 @@ export default function ContactSection() {
           </Link>
           <Link
             href='/resume'
-            className='border border-gray-600 text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors'
+            className='border border-gray-600 dark:border-gray-500 text-white px-8 py-3 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors'
           >
             Download Resume
           </Link>
@@ -36,7 +36,7 @@ export default function ContactSection() {
             <Link
               key={social.name}
               href='#'
-              className='text-gray-400 hover:text-white transition-colors flex items-center gap-2'
+              className='text-gray-400 dark:text-gray-300 hover:text-white transition-colors flex items-center gap-2'
             >
               <span className='text-2xl'>{social.icon}</span>
               <span className='sr-only'>{social.name}</span>

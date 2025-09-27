@@ -106,7 +106,7 @@ export default function RegisterForm() {
   const passwordStrength = getPasswordStrength(formData.password);
 
   return (
-    <div className='bg-white rounded-xl shadow-lg p-8'>
+    <div className='bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8'>
       <form onSubmit={handleSubmit} className='space-y-6'>
         {/* General Error */}
         {errors.general && (
@@ -119,7 +119,7 @@ export default function RegisterForm() {
         <div>
           <label
             htmlFor='name'
-            className='block text-sm font-medium text-gray-700 mb-2'
+            className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
           >
             Full Name
           </label>
@@ -129,8 +129,8 @@ export default function RegisterForm() {
             type='text'
             value={formData.name}
             onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-              errors.name ? 'border-red-300 bg-red-50' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white dark:bg-gray-800 text-gray-900 dark:text-white ${
+              errors.name ? 'border-red-300 bg-red-50 dark:bg-red-900/20' : 'border-gray-300 dark:border-gray-600'
             }`}
             placeholder='Enter your full name'
           />
@@ -143,7 +143,7 @@ export default function RegisterForm() {
         <div>
           <label
             htmlFor='email'
-            className='block text-sm font-medium text-gray-700 mb-2'
+            className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
           >
             Email Address
           </label>
@@ -153,8 +153,8 @@ export default function RegisterForm() {
             type='email'
             value={formData.email}
             onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-              errors.email ? 'border-red-300 bg-red-50' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white dark:bg-gray-800 text-gray-900 dark:text-white ${
+              errors.email ? 'border-red-300 bg-red-50 dark:bg-red-900/20' : 'border-gray-300 dark:border-gray-600'
             }`}
             placeholder='Enter your email address'
           />
@@ -167,7 +167,7 @@ export default function RegisterForm() {
         <div>
           <label
             htmlFor='password'
-            className='block text-sm font-medium text-gray-700 mb-2'
+            className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
           >
             Password
           </label>
@@ -178,15 +178,15 @@ export default function RegisterForm() {
               type={showPassword ? 'text' : 'password'}
               value={formData.password}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 pr-12 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-                errors.password ? 'border-red-300 bg-red-50' : 'border-gray-300'
+              className={`w-full px-4 py-3 pr-12 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white dark:bg-gray-800 text-gray-900 dark:text-white ${
+                errors.password ? 'border-red-300 bg-red-50 dark:bg-red-900/20' : 'border-gray-300 dark:border-gray-600'
               }`}
               placeholder='Create a strong password'
             />
             <button
               type='button'
               onClick={() => setShowPassword(!showPassword)}
-              className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700'
+              className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
             >
               {showPassword ? '👁️' : '👁️‍🗨️'}
             </button>
@@ -205,7 +205,7 @@ export default function RegisterForm() {
         <div>
           <label
             htmlFor='confirmPassword'
-            className='block text-sm font-medium text-gray-700 mb-2'
+            className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
           >
             Confirm Password
           </label>
@@ -215,10 +215,10 @@ export default function RegisterForm() {
             type='password'
             value={formData.confirmPassword}
             onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white dark:bg-gray-800 text-gray-900 dark:text-white ${
               errors.confirmPassword
-                ? 'border-red-300 bg-red-50'
-                : 'border-gray-300'
+                ? 'border-red-300 bg-red-50 dark:bg-red-900/20'
+                : 'border-gray-300 dark:border-gray-600'
             }`}
             placeholder='Confirm your password'
           />
@@ -269,21 +269,21 @@ export default function RegisterForm() {
       <div className='mt-6'>
         <div className='relative'>
           <div className='absolute inset-0 flex items-center'>
-            <div className='w-full border-t border-gray-300' />
+            <div className='w-full border-t border-gray-300 dark:border-gray-600' />
           </div>
           <div className='relative flex justify-center text-sm'>
-            <span className='px-2 bg-white text-gray-500'>
+            <span className='px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400'>
               Or continue with
             </span>
           </div>
         </div>
 
         <div className='mt-6 grid grid-cols-2 gap-3'>
-          <button className='w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors'>
+          <button className='w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors'>
             <span className='mr-2'>🔍</span>
             Google
           </button>
-          <button className='w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors'>
+          <button className='w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors'>
             <span className='mr-2'>📘</span>
             GitHub
           </button>
@@ -292,11 +292,11 @@ export default function RegisterForm() {
 
       {/* Login Link */}
       <div className='mt-6 text-center'>
-        <p className='text-sm text-gray-600'>
+        <p className='text-sm text-gray-600 dark:text-gray-300'>
           Already have an account?{' '}
           <Link
             href='/login'
-            className='font-medium text-blue-600 hover:text-blue-500 transition-colors'
+            className='font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition-colors'
           >
             Sign in here
           </Link>
