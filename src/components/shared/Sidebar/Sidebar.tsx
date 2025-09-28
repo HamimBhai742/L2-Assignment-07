@@ -3,18 +3,19 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { 
-  Home, 
-  User, 
-  FolderOpen, 
-  BookOpen, 
-  Mail, 
-  Menu, 
+import {
+  Home,
+  User,
+  FolderOpen,
+  BookOpen,
+  Mail,
+  Menu,
   X,
   Settings,
   LogOut,
   ChevronRight
 } from 'lucide-react';
+import { ThemeToggle } from '@/components/toggle/ThemeToggleBtn';
 
 const navigationItems = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
@@ -56,18 +57,18 @@ export default function Sidebar() {
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen w-64 
+          fixed top-0 left-0 z-40 h-screen w-64
           transform transition-transform duration-300 ease-in-out
           lg:translate-x-0 lg:static lg:z-auto
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-          bg-gradient-to-b from-white to-gray-50 
+          bg-gradient-to-b from-white to-gray-50
           dark:from-gray-900 dark:to-gray-800
           border-r border-gray-200 dark:border-gray-700
           shadow-xl lg:shadow-none
         `}
       >
         {/* Header */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b flex items-center justify-between border-gray-200 dark:border-gray-700">
           <Link href="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">P</span>
@@ -77,6 +78,9 @@ export default function Sidebar() {
               <p className="text-sm text-gray-500 dark:text-gray-400">Dashboard</p>
             </div>
           </Link>
+          <div>
+            <ThemeToggle/>
+          </div>
         </div>
 
         {/* Navigation */}
@@ -84,7 +88,7 @@ export default function Sidebar() {
           {navigationItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
-            
+
             return (
               <Link
                 key={item.name}
@@ -93,18 +97,18 @@ export default function Sidebar() {
                 className={`
                   flex items-center space-x-3 px-4 py-3 rounded-lg
                   transition-all duration-200 group
-                  ${isActive 
-                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm' 
+                  ${isActive
+                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50'
                   }
                 `}
               >
-                <Icon 
+                <Icon
                   className={`h-5 w-5 transition-colors ${
-                    isActive 
-                      ? 'text-blue-600 dark:text-blue-400' 
+                    isActive
+                      ? 'text-blue-600 dark:text-blue-400'
                       : 'text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300'
-                  }`} 
+                  }`}
                 />
                 <span className="font-medium">{item.name}</span>
                 {isActive ? (
@@ -119,7 +123,7 @@ export default function Sidebar() {
 
         {/* Footer */}
         <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-          <button 
+          <button
             onClick={async () => {
               try {
                 const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
