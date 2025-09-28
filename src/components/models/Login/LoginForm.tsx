@@ -37,7 +37,7 @@ export default function LoginForm() {
         toast.error(user?.message);
       }
       if (user?.success) {
-        router.push('/');
+        router.push('/dashboard');
         toast.success(user?.message);
       }
     } catch (error) {
