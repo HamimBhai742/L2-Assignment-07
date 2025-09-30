@@ -5,15 +5,19 @@ import ProjectCard from './ProjectCard';
 import { Eye } from 'lucide-react';
 import { Project, ProjectsListProps } from '@/types/projects.type';
 import Swal from 'sweetalert2';
+import AddProjectForm from './AddProjectForm';
 export default function ProjectsList({
   viewMode,
   searchTerm,
+  setShowAddForm,
+  showAddForm
 }: ProjectsListProps) {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const fetchProjects = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/projects`);
@@ -34,6 +38,7 @@ export default function ProjectsList({
   };
 
   const handleUpdate = (updatedProject: Project) => {
+    setLoading(false);
     setProjects((prev) =>
       prev.map((p) => (p.id === updatedProject.id ? updatedProject : p))
     );
@@ -132,6 +137,16 @@ export default function ProjectsList({
           />
         ))}
       </div>
+
+       {/* Add Project Modal */}
+        {showAddForm && (
+          <AddProjectForm
+            onClose={() => setShowAddForm(false)}
+            onAdd={(project) => {
+              setProjects((prev) => [...prev, project]);
+            }}
+          />
+        )}
 
       {editingProject && (
         <UpdateProjectForm

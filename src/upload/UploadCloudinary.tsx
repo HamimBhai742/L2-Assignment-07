@@ -1,4 +1,3 @@
-
 export default async function UploadCloudinary({
   thumbnail,
 }: {
@@ -18,7 +17,7 @@ export default async function UploadCloudinary({
     );
     const data = await res.json();
     if (data?.secure_url) {
-      return data;
+      return data.secure_url;
     }
   } catch (error) {
     console.log(error);

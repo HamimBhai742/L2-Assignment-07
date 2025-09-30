@@ -7,6 +7,7 @@ import { Project } from '@/types/projects.type';
 import { cleanObj } from '@/actions/cleanObj';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import DatePicker from 'react-datepicker';
 
 interface UpdateProjectFormProps {
   project: Project;
@@ -228,17 +229,22 @@ export default function UpdateProjectForm({
                 Start Date
               </label>
               <div className='relative'>
-                <Calendar className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
-                <input
-                  type='date'
-                  defaultValue={project.startDate}
-                  onChange={(e) =>
+                <Calendar className='absolute z-50 left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
+                <DatePicker
+                  selected={
+                    formData.startDate
+                      ? new Date(formData.startDate)
+                      : new Date(project.startDate as string)
+                  }
+                  onChange={(date: Date | null) =>
                     setFormData((prev) => ({
                       ...prev,
-                      startDate: e.target.value,
+                      startDate: date ? date.toISOString().split('T')[0] : '',
                     }))
                   }
-                  className='w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200'
+                  dateFormat='dd/MM/yyyy'
+                  placeholderText='dd/mm/yyyy'
+                  className='w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
                 />
               </div>
             </div>
@@ -248,8 +254,26 @@ export default function UpdateProjectForm({
                 End Date
               </label>
               <div className='relative'>
-                <Calendar className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
-                <input
+                <Calendar className='absolute z-50 left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
+                <DatePicker
+                  selected={
+                    formData.endDate
+                      ? new Date(formData.endDate)
+                      : project?.endDate
+                      ? new Date(project.endDate as string)
+                      : null
+                  }
+                  onChange={(date: Date | null) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      endDate: date ? date.toISOString().split('T')[0] : '',
+                    }))
+                  }
+                  dateFormat='dd/MM/yyyy'
+                  placeholderText='dd/mm/yyyy'
+                  className='w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
+                />
+                {/* <input
                   type='date'
                   defaultValue={project?.endDate}
                   onChange={(e) =>
@@ -259,7 +283,7 @@ export default function UpdateProjectForm({
                     }))
                   }
                   className='w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200'
-                />
+                /> */}
               </div>
             </div>
           </div>

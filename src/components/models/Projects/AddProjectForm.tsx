@@ -6,12 +6,17 @@ import { DatePicker } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import UploadCloudinary from '@/upload/UploadCloudinary';
 import toast from 'react-hot-toast';
+import { Project } from '@/types/projects.type';
 
 interface AddProjectFormProps {
   onClose: () => void;
+  onAdd: (project: Project) => void;
 }
 
-export default function AddProjectForm({ onClose }: AddProjectFormProps) {
+export default function AddProjectForm({
+  onClose,
+  onAdd,
+}: AddProjectFormProps) {
   const [formData, setFormData] = useState({
     userId: 1,
     title: '',
@@ -49,8 +54,9 @@ export default function AddProjectForm({ onClose }: AddProjectFormProps) {
         }
       );
       const data = await res.json();
-      console.log(data)
+      console.log(data);
       if (data?.success) {
+        onAdd(data?.data);
         toast.success(data?.message);
       }
       if (!data?.success) {
@@ -96,7 +102,7 @@ export default function AddProjectForm({ onClose }: AddProjectFormProps) {
             />
           </div>
 
-          <div>
+          <div className='relative'>
             <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
               Description *
             </label>
@@ -110,9 +116,12 @@ export default function AddProjectForm({ onClose }: AddProjectFormProps) {
                   description: e.target.value,
                 }))
               }
-              className='w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none'
+              className='w-full  px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none'
               placeholder='Describe your project minimum 200 characters'
             />
+            <span className='text-xs absolute right-2 bottom-3 ml-4 text-gray-600 dark:text-gray-400 block '>
+              {formData?.description?.length || 0}
+            </span>
           </div>
 
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -233,7 +242,7 @@ export default function AddProjectForm({ onClose }: AddProjectFormProps) {
                 Start Date *
               </label>
               <div className='relative'>
-                <Calendar className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
+                <Calendar className='absolute z-50 left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
                 <DatePicker
                   required
                   selected={
@@ -246,7 +255,7 @@ export default function AddProjectForm({ onClose }: AddProjectFormProps) {
                     }))
                   }
                   dateFormat='dd/MM/yyyy'
-                  placeholderText='dd/MM/yyyy'
+                  placeholderText='dd/mm/yyyy'
                   className='w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
                 />
               </div>
@@ -259,7 +268,7 @@ export default function AddProjectForm({ onClose }: AddProjectFormProps) {
                   End Date
                 </label>
                 <div className='relative'>
-                  <Calendar className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
+                  <Calendar className='absolute z-50 left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
                   <DatePicker
                     selected={
                       formData.endDate ? new Date(formData.endDate) : null
@@ -271,7 +280,7 @@ export default function AddProjectForm({ onClose }: AddProjectFormProps) {
                       }))
                     }
                     dateFormat='dd/MM/yyyy'
-                    placeholderText='dd/MM/yyyy'
+                    placeholderText='dd/mm/yyyy'
                     className='w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
                   />
                 </div>

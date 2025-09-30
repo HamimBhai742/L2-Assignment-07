@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Edit,
   Save,
@@ -14,62 +14,107 @@ import {
   Github,
   Linkedin,
   Twitter,
+  Facebook,
 } from 'lucide-react';
 import Image from 'next/image';
-
-interface ProfileData {
-  name: string;
-  email: string;
-  phone: string;
-  location: string;
-  bio: string;
-  title: string;
-  website: string;
-  github: string;
-  linkedin: string;
-  twitter: string;
-  skills: string[];
-  joinDate: string;
-  thumbnail: File | null;
-}
-
+import toast from 'react-hot-toast';
+import { cleanObj } from '@/actions/cleanObj';
+import ProfileSkeleton from '@/components/models/Profile/ProfileSkeleton';
+import { EditData, ProfileData } from '@/types/Profile.data';
+import UploadCloudinary from '@/upload/UploadCloudinary';
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [profileData, setProfileData] = useState<ProfileData>({
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    phone: '+1 (555) 123-4567',
-    location: 'San Francisco, CA',
-    bio: 'Full-stack developer passionate about creating innovative web applications. I love working with modern technologies and building user-friendly interfaces.',
-    title: 'Senior Full Stack Developer',
-    website: 'https://johndoe.dev',
-    github: 'https://github.com/johndoe',
-    linkedin: 'https://linkedin.com/in/johndoe',
-    twitter: 'https://twitter.com/johndoe',
-    skills: [
-      'React',
-      'Next.js',
-      'TypeScript',
-      'Node.js',
-      'Python',
-      'AWS',
-      'Docker',
-      'MongoDB',
-    ],
-    joinDate: '2023-01-15',
-    thumbnail: null,
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    about: '',
+    title: '',
+    website: '',
+    experience: '',
+    githubUrl: '',
+    linkedInUrl: '',
+    facebookUrl: '',
+    skills: [],
+    createdAt: '',
+    picture: '',
   });
 
-  const [editData, setEditData] = useState<ProfileData>(profileData);
+  const [editData, setEditData] = useState<EditData>({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    about: '',
+    title: '',
+    website: '',
+    experience: '',
+    githubUrl: '',
+    linkedInUrl: '',
+    facebookUrl: '',
+    skills: [],
+    createdAt: '',
+    picture: null,
+  });
+
+  useEffect(() => {
+    const profileData = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/me`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      const data = await res.json();
+      if (data?.success) {
+        setProfileData(data?.data);
+        setIsLoading(false);
+      }
+    };
+    profileData();
+  }, [setProfileData]);
 
   const handleEdit = () => {
     setEditData(profileData);
     setIsEditing(true);
   };
+    console.log(profileData);
+    console.log(editData);
+  const handleSave = async () => {
 
-  const handleSave = () => {
-    setProfileData(editData);
-    setIsEditing(false);
+    try {
+      const thumbnailUrl = await UploadCloudinary({
+        thumbnail: editData.picture,
+      });
+      if (thumbnailUrl) {
+        editData.picture = thumbnailUrl;
+      }
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/update-profile`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(cleanObj(editData)),
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      if (data?.success) {
+        setProfileData(data?.data);
+        toast.success(data?.message);
+      }
+      if (!data?.success) {
+        toast.error(data?.message);
+      }
+    } catch (error) {
+      toast.error('Error updating profile');
+      console.log(error);
+    } finally {
+      setIsEditing(false);
+    }
   };
 
   const handleCancel = () => {
@@ -93,7 +138,10 @@ export default function ProfilePage() {
     }));
   };
 
-  console.log(profileData)
+  if (isLoading) {
+    return ProfileSkeleton();
+  }
+
   return (
     <div className='min-h-screen bg-gray-50 dark:bg-gray-900 p-4 lg:p-8'>
       <div className='max-w-6xl mx-auto'>
@@ -131,7 +179,7 @@ export default function ProfilePage() {
                   className='flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-medium'
                 >
                   <Save className='h-5 w-5' />
-                  <span>Save Changes</span>
+                  <span>Save Chathumbnailnges</span>
                 </button>
               </div>
             )}
@@ -145,10 +193,12 @@ export default function ProfilePage() {
               {/* Avatar Section */}
               <div className='text-center mb-6'>
                 <div className='relative inline-block'>
-                  {profileData.thumbnail ? (
+                  {profileData?.picture &&
+                  editData.picture !== null &&
+                  typeof editData.picture === 'object' ? (
                     <div className='w-32 h-32 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg'>
                       <Image
-                        src={URL.createObjectURL(profileData.thumbnail)}
+                        src={URL.createObjectURL(editData?.picture as File)}
                         alt='Profile Preview'
                         width={200}
                         height={200}
@@ -156,11 +206,15 @@ export default function ProfilePage() {
                       />
                     </div>
                   ) : (
-                    <div className='w-32 h-32 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg'>
-                      {profileData.name
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
+                    <div className='w-32 h-32 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg'>
+                      <Image
+                        src={profileData?.picture}
+                        priority
+                        alt='Profile Preview'
+                        width={200}
+                        height={200}
+                        className='w-32 h-32 rounded-full object-cover'
+                      />
                     </div>
                   )}
 
@@ -168,15 +222,14 @@ export default function ProfilePage() {
                     <label className='absolute bottom-2 right-2 p-2 bg-white dark:bg-gray-700 rounded-full shadow-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors'>
                       <Camera className='h-4 w-4 text-gray-400' />
                       <input
-                        required
                         type='file'
                         accept='image/*'
                         className='hidden'
                         onChange={(e) => {
                           const file = e.target.files?.[0] ?? null;
-                          setProfileData((prev) => ({
+                          setEditData((prev) => ({
                             ...prev,
-                            thumbnail: file,
+                            picture: file,
                           }));
                         }}
                       />
@@ -270,18 +323,18 @@ export default function ProfilePage() {
                   {isEditing ? (
                     <input
                       type='text'
-                      value={editData.location}
+                      value={editData?.address}
                       onChange={(e) =>
                         setEditData((prev) => ({
                           ...prev,
-                          location: e.target.value,
+                          address: e.target.value,
                         }))
                       }
                       className='flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
                     />
                   ) : (
                     <span className='text-gray-700 dark:text-gray-300 text-sm'>
-                      {profileData.location}
+                      {profileData.address}
                     </span>
                   )}
                 </div>
@@ -290,7 +343,7 @@ export default function ProfilePage() {
                   <Calendar className='h-5 w-5 text-gray-400' />
                   <span className='text-gray-700 dark:text-gray-300 text-sm'>
                     Joined{' '}
-                    {new Date(profileData.joinDate).toLocaleDateString(
+                    {new Date(profileData.createdAt).toLocaleDateString(
                       'en-US',
                       {
                         year: 'numeric',
@@ -312,7 +365,7 @@ export default function ProfilePage() {
                     {isEditing ? (
                       <input
                         type='url'
-                        value={editData.website}
+                        value={editData?.website}
                         onChange={(e) =>
                           setEditData((prev) => ({
                             ...prev,
@@ -324,7 +377,7 @@ export default function ProfilePage() {
                       />
                     ) : (
                       <a
-                        href={profileData.website}
+                        href={profileData?.website}
                         target='_blank'
                         rel='noopener noreferrer'
                         className='text-indigo-600 dark:text-indigo-400 hover:underline text-sm'
@@ -339,11 +392,11 @@ export default function ProfilePage() {
                     {isEditing ? (
                       <input
                         type='url'
-                        value={editData.github}
+                        value={editData?.githubUrl}
                         onChange={(e) =>
                           setEditData((prev) => ({
                             ...prev,
-                            github: e.target.value,
+                            githubUrl: e.target.value,
                           }))
                         }
                         className='flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
@@ -351,7 +404,7 @@ export default function ProfilePage() {
                       />
                     ) : (
                       <a
-                        href={profileData.github}
+                        href={profileData.githubUrl}
                         target='_blank'
                         rel='noopener noreferrer'
                         className='text-indigo-600 dark:text-indigo-400 hover:underline text-sm'
@@ -366,11 +419,11 @@ export default function ProfilePage() {
                     {isEditing ? (
                       <input
                         type='url'
-                        value={editData.linkedin}
+                        value={profileData?.linkedInUrl}
                         onChange={(e) =>
                           setEditData((prev) => ({
                             ...prev,
-                            linkedin: e.target.value,
+                            linkedInUrl: e.target.value,
                           }))
                         }
                         className='flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
@@ -378,7 +431,7 @@ export default function ProfilePage() {
                       />
                     ) : (
                       <a
-                        href={profileData.linkedin}
+                        href={profileData.linkedInUrl}
                         target='_blank'
                         rel='noopener noreferrer'
                         className='text-indigo-600 dark:text-indigo-400 hover:underline text-sm'
@@ -389,28 +442,28 @@ export default function ProfilePage() {
                   </div>
 
                   <div className='flex items-center space-x-3'>
-                    <Twitter className='h-4 w-4 text-gray-400' />
+                    <Facebook className='h-4 w-4 text-gray-400' />
                     {isEditing ? (
                       <input
                         type='url'
-                        value={editData.twitter}
+                        value={editData?.facebookUrl}
                         onChange={(e) =>
                           setEditData((prev) => ({
                             ...prev,
-                            twitter: e.target.value,
+                            facebookUrl: e.target.value,
                           }))
                         }
                         className='flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
-                        placeholder='Twitter URL'
+                        placeholder='Facebook URL'
                       />
                     ) : (
                       <a
-                        href={profileData.twitter}
+                        href={profileData.facebookUrl}
                         target='_blank'
                         rel='noopener noreferrer'
                         className='text-indigo-600 dark:text-indigo-400 hover:underline text-sm'
                       >
-                        Twitter
+                        Facebook
                       </a>
                     )}
                   </div>
@@ -428,9 +481,9 @@ export default function ProfilePage() {
               </h3>
               {isEditing ? (
                 <textarea
-                  value={editData.bio}
+                  value={editData.about}
                   onChange={(e) =>
-                    setEditData((prev) => ({ ...prev, bio: e.target.value }))
+                    setEditData((prev) => ({ ...prev, about: e.target.value }))
                   }
                   rows={4}
                   className='w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none'
@@ -438,7 +491,7 @@ export default function ProfilePage() {
                 />
               ) : (
                 <p className='text-gray-700 dark:text-gray-300 leading-relaxed'>
-                  {profileData.bio}
+                  {profileData.about}
                 </p>
               )}
             </div>

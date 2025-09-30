@@ -104,7 +104,11 @@ const ProjectCard = ({
         <div className='flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700'>
           <div className='flex items-center text-sm text-gray-500 dark:text-gray-400'>
             <Calendar className='h-4 w-4 mr-1' />
-            {new Date(project?.startDate).toLocaleDateString()}
+            {new Date(project?.startDate).toLocaleDateString('en-GB')} -{' '}
+            <Calendar className='h-4 w-4 mr-1' />
+            {project?.endDate
+              ? new Date(project?.endDate).toLocaleDateString('en-GB')
+              : 'Present'}
           </div>
 
           <div className='flex items-center space-x-2'>

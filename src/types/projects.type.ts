@@ -23,4 +23,6 @@ export interface ProjectCardProps {
 export interface ProjectsListProps {
   viewMode: 'grid' | 'list';
   searchTerm: string;
+  setShowAddForm: (show: boolean) => void;
+  showAddForm: boolean;
 }
