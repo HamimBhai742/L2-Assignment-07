@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import {
   Edit,
@@ -13,14 +12,13 @@ import {
   Globe,
   Github,
   Linkedin,
-  Twitter,
   Facebook,
 } from 'lucide-react';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { cleanObj } from '@/actions/cleanObj';
 import ProfileSkeleton from '@/components/models/Profile/ProfileSkeleton';
-import { EditData, ProfileData } from '@/types/Profile.data';
+import { ProfileData } from '@/types/Profile.data';
 import UploadCloudinary from '@/upload/UploadCloudinary';
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
@@ -39,26 +37,10 @@ export default function ProfilePage() {
     facebookUrl: '',
     skills: [],
     createdAt: '',
-    picture: '',
-  });
-
-  const [editData, setEditData] = useState<EditData>({
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    about: '',
-    title: '',
-    website: '',
-    experience: '',
-    githubUrl: '',
-    linkedInUrl: '',
-    facebookUrl: '',
-    skills: [],
-    createdAt: '',
     picture: null,
   });
 
+  const [editData, setEditData] = useState<ProfileData>(profileData);
   useEffect(() => {
     const profileData = async () => {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/me`, {
@@ -78,10 +60,9 @@ export default function ProfilePage() {
     setEditData(profileData);
     setIsEditing(true);
   };
-    console.log(profileData);
-    console.log(editData);
+  console.log(profileData);
+  console.log(editData);
   const handleSave = async () => {
-
     try {
       const thumbnailUrl = await UploadCloudinary({
         thumbnail: editData.picture,
@@ -198,7 +179,11 @@ export default function ProfilePage() {
                   typeof editData.picture === 'object' ? (
                     <div className='w-32 h-32 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg'>
                       <Image
-                        src={URL.createObjectURL(editData?.picture as File)}
+                        src={
+                          editData.picture === null
+                            ? `${profileData?.picture}`
+                            : URL.createObjectURL(editData.picture)
+                        }
                         alt='Profile Preview'
                         width={200}
                         height={200}
@@ -208,7 +193,7 @@ export default function ProfilePage() {
                   ) : (
                     <div className='w-32 h-32 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg'>
                       <Image
-                        src={profileData?.picture}
+                        src={`${profileData?.picture}`}
                         priority
                         alt='Profile Preview'
                         width={200}
