@@ -60,7 +60,7 @@ const NavbarCard = ({ me }: { me: { name: string; picture: string } }) => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg'
-          : 'bg-transparent dark:bg-gray-900/95'
+          : 'bg-transparent  dark:bg-transparent'
       }`}
     >
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
@@ -104,7 +104,7 @@ const NavbarCard = ({ me }: { me: { name: string; picture: string } }) => {
             </div>
             {user?.success ? (
               <Menu as='div' className='relative ml-3'>
-                <MenuButton className='relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'>
+                <MenuButton className='relative hover:cursor-pointer flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'>
                   <span className='absolute -inset-1.5' />
                   <span className='sr-only'>Open user menu</span>
                   <Image
@@ -113,9 +113,9 @@ const NavbarCard = ({ me }: { me: { name: string; picture: string } }) => {
                       me?.picture ||
                       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
                     }
-                    width={32}
-                    height={32}
-                    className='size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10'
+                    width={48}
+                    height={48}
+                    className='size-10  rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10'
                   />
                 </MenuButton>
 
@@ -135,7 +135,7 @@ const NavbarCard = ({ me }: { me: { name: string; picture: string } }) => {
                   <MenuItem>
                     <button
                       onClick={handelSignOutBtn}
-                      className='block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden dark:text-gray-300 dark:data-focus:bg-white/5 w-full text-left'
+                      className='block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden dark:text-gray-300 dark:data-focus:bg-white/5 w-full text-left hover:cursor-pointer'
                     >
                       Sign out
                     </button>
@@ -210,7 +210,7 @@ const NavbarCard = ({ me }: { me: { name: string; picture: string } }) => {
 
             {/* Mobile Auth Buttons */}
             <div className='px-4 py-3 border-t border-gray-200 space-y-2'>
-              {isLoggedIn ? (
+              {user.success ? (
                 <div className='flex items-center space-x-3'>
                   <div className='w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center'>
                     <span className='text-white font-medium'>JD</span>
@@ -230,13 +230,6 @@ const NavbarCard = ({ me }: { me: { name: string; picture: string } }) => {
                     className='block w-full text-center px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors'
                   >
                     Login
-                  </Link>
-                  <Link
-                    href='/register'
-                    onClick={() => setIsOpen(false)}
-                    className='block w-full text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors'
-                  >
-                    Register
                   </Link>
                 </div>
               )}

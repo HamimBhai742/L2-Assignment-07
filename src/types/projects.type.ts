@@ -1,0 +1,26 @@
+export interface Project {
+  id: number;
+  userId: number;
+  title: string;
+  thumbnail?: string;
+  description: string;
+  technologies: string[];
+  liveUrl?: string;
+  githubUrl?: string;
+  category: string;
+  startDate: string;
+  endDate?: string;
+  status: 'completed' | 'in_progress' | 'planned';
+}
+
+export interface ProjectCardProps {
+  project: Project;
+  viewMode: 'grid' | 'list';
+  handleEdit: (project: Project) => void;
+  handleDelete: (id: number) => void;
+}
+
+export interface ProjectsListProps {
+  viewMode: 'grid' | 'list';
+  searchTerm: string;
+}
