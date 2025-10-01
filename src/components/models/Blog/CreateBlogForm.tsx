@@ -89,8 +89,8 @@ export default function CreateBlogForm() {
 
   console.log(thumb);
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-8 px-4 sm:px-6 lg:px-8'>
-      <div className='max-w-4xl mx-auto'>
+    <div className='bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-4 px-4'>
+      <div className='max-w-7xl'>
         {/* Header */}
         <div className='text-center mb-8'>
           <div className='inline-flex items-center justify-center w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full mb-4'>
@@ -312,7 +312,7 @@ export default function CreateBlogForm() {
                 })}
                 rows={15}
                 className='w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none transition-all duration-200 font-mono text-sm leading-relaxed'
-                placeholder='Write your blog content here... You can use Markdown formatting.'
+                placeholder='Write your blog content here....'
               />
               {errors.content && (
                 <p className='text-red-500 text-sm'>{errors.content.message}</p>
@@ -324,7 +324,7 @@ export default function CreateBlogForm() {
               <Button
                 type='submit'
                 disabled={isSubmitting}
-                className='flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105'
+                className='flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold p-6 rounded-lg transition-all duration-200 transform hover:scale-105 text-lg'
               >
                 {isSubmitting ? (
                   <div className='flex items-center justify-center'>
