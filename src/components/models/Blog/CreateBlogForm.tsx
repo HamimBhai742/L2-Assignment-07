@@ -332,7 +332,7 @@ export default function CreateBlogForm() {
                     Creating...
                   </div>
                 ) : (
-                  'Publish Blog Post'
+                  ' Blog Post'
                 )}
               </Button>
             </div>
