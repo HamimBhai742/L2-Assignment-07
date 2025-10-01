@@ -14,7 +14,6 @@ import { logout } from '@/helpers/logout';
 const NavbarCard = ({ me }: { me: { name: string; picture: string } }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isLoggedIn] = useState(false);
   const [user, setUser] = useState({ success: false });
   const router = useRouter();
   const pathname = usePathname();
@@ -99,8 +98,8 @@ const NavbarCard = ({ me }: { me: { name: string; picture: string } }) => {
 
           {/* Auth Buttons / User Menu */}
           <div className='hidden md:flex items-center space-x-4'>
-            <div>
-              <ThemeToggle />
+            <div >
+              <ThemeToggle  />
             </div>
             {user?.success ? (
               <Menu as='div' className='relative ml-3'>

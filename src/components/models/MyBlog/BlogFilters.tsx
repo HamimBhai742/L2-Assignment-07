@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { BlogFilters as BlogFiltersType, blogCategories } from '@/types/blog.types';

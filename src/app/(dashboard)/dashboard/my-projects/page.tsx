@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import { Plus, Grid3X3, List, Search } from 'lucide-react';
 // import { AddProjectForm } from '@/components/models/Projects';
-import ProjectsList from '@/components/models/Projects/ProjectsList';
+import ProjectsList from '@/components/models/MyProjects/ProjectsList';
 
-export default function ProjectsPage() {
+export default function MyProjectsPage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchTerm, setSearchTerm] = useState('');

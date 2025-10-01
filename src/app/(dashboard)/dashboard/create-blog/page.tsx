@@ -1,4 +1,4 @@
-import CreateBlogForm from '@/components/models/Blog/CreateBlogForm';
+import CreateBlogForm from '@/components/models/MyBlog/CreateBlogForm';
 
 export default function CreateBlogPage() {
   return (

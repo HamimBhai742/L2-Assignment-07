@@ -1,6 +1,6 @@
 'use client';
 
-import { UpdateBlogForm } from '@/components/models/Blog/UpdateBlogForm';
+import { UpdateBlogForm } from '@/components/models/MyBlog/UpdateBlogForm';
 import { useParams } from 'next/navigation';
 
 export default function UpdateBlogPage() {

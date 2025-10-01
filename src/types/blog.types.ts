@@ -1,10 +1,10 @@
 export interface BlogFormData {
   title: string;
+  status: 'draft' | 'published';
   content: string;
   description: string;
   category: string;
   tags: string[];
-  status: 'draft' | 'published';
   thumbnail: File[] | null;
 }
 
@@ -16,6 +16,7 @@ export interface BlogPost extends Omit<BlogFormData, 'thumbnail'> {
   updatedAt: string;
   status: 'draft' | 'published';
   readTime: number;
+  views?: number;
 }
 
 export const blogCategories = [

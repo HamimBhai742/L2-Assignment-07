@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Plus, FolderOpen, BookOpen, User, Settings } from 'lucide-react';
-import { AddProjectForm } from '@/components/models/Projects';
+import { AddProjectForm } from '@/components/models/MyProjects';
 import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {

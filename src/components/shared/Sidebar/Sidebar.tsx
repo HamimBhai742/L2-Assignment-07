@@ -21,7 +21,7 @@ import { ThemeToggle } from '@/components/toggle/ThemeToggleBtn';
 const navigationItems = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
   { name: 'Profile', href: '/dashboard/profile', icon: User },
-  { name: 'Projects', href: '/dashboard/projects', icon: FolderOpen },
+  { name: 'My Projects', href: '/dashboard/my-projects', icon: FolderOpen },
   { name: 'Create Blog', href: '/dashboard/create-blog', icon: BookOpen },
   { name: 'My Blogs', href: '/dashboard/my-blogs', icon: Book },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },

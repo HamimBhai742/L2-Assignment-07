@@ -3,10 +3,10 @@
 import { useState, useMemo } from 'react';
 import { Plus, Grid, List } from 'lucide-react';
 import { BlogPost, BlogFilters as BlogFiltersType } from '@/types/blog.types';
-import { BlogCard } from '@/components/models/Blog/BlogCard';
-import { BlogFilters } from '@/components/models/Blog/BlogFilters';
-import { BlogStats } from '@/components/models/Blog/BlogStats';
-import { BlogPreviewModal } from '@/components/models/Blog/BlogPreviewModal';
+import { BlogCard } from '@/components/models/MyBlog/BlogCard';
+import { BlogFilters } from '@/components/models/MyBlog/BlogFilters';
+import { BlogStats } from '@/components/models/MyBlog/BlogStats';
+import { BlogPreviewModal } from '@/components/models/MyBlog/BlogPreviewModal';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
@@ -71,12 +71,12 @@ const MyBlogsPage = () => {
   // Filter blogs based on current filters
   const filteredBlogs = useMemo(() => {
     return blogs.filter(blog => {
-      const matchesSearch = !filters.search || 
+      const matchesSearch = !filters.search ||
         blog.title.toLowerCase().includes(filters.search.toLowerCase()) ||
         blog.description.toLowerCase().includes(filters.search.toLowerCase());
-      
+
       const matchesCategory = !filters.category || blog.category === filters.category;
-      
+
       const matchesStatus = filters.status === 'all' || blog.status === filters.status;
 
       return matchesSearch && matchesCategory && matchesStatus;
@@ -109,7 +109,7 @@ const MyBlogsPage = () => {
             Manage and organize your blog posts
           </p>
         </div>
-        
+
         <div className="flex items-center gap-3">
           {/* View Mode Toggle */}
           <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">

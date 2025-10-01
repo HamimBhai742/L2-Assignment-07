@@ -1,4 +1,4 @@
-import Sidebar from '@/components/shared/Sidebar';
+import Sidebar from "@/components/shared/Sidebar/Sidebar";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
