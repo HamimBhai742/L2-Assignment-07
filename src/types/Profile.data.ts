@@ -4,7 +4,7 @@ export interface ProfileData {
   phone: string;
   address: string;
   about: string;
-  title: string;
+  profession: Profession;
   website: string;
   experience: string;
   githubUrl: string;
@@ -13,4 +13,16 @@ export interface ProfileData {
   skills: string[];
   createdAt: string;
   picture: File | null;
+}
+
+export enum Profession {
+  DIGITAL_MARKETER = 'digital_marketer',
+  FULL_STACK_DEVELOPER = 'full_stack_developer',
+  FRONT_END_DEVELOPER = 'front_end_developer',
+  BACK_END_DEVELOPER = 'back_end_developer',
+  MOBILE_DEVELOPER = 'mobile_developer',
+  UI_UX_DESIGNER = 'ui_ux_designer',
+  PRODUCT_DESIGNER = 'product_designer',
+  DATA_ANALYST = 'data_analyst',
+  DATA_ENGINEER = 'data_engineer',
 }

@@ -18,8 +18,9 @@ import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { cleanObj } from '@/actions/cleanObj';
 import ProfileSkeleton from '@/components/models/Profile/ProfileSkeleton';
-import { ProfileData } from '@/types/Profile.data';
+import { Profession, ProfileData } from '@/types/Profile.data';
 import UploadCloudinary from '@/upload/UploadCloudinary';
+import { snakeToProfession } from '@/helpers/sanakeToProfe';
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +30,7 @@ export default function ProfilePage() {
     phone: '',
     address: '',
     about: '',
-    title: '',
+    profession: Profession.FULL_STACK_DEVELOPER,
     website: '',
     experience: '',
     githubUrl: '',
@@ -173,6 +174,7 @@ export default function ProfilePage() {
             <div className='bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6'>
               {/* Avatar Section */}
               <div className='text-center mb-6'>
+                
                 <div className='relative inline-block'>
                   {profileData?.picture &&
                   editData.picture !== null &&
@@ -235,17 +237,34 @@ export default function ProfilePage() {
                       }
                       className='w-full text-center text-xl font-bold bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
                     />
-                    <input
-                      type='text'
-                      value={editData.title}
+                    <select
+                      name='profession'
+                      value={editData.profession}
                       onChange={(e) =>
                         setEditData((prev) => ({
                           ...prev,
-                          title: e.target.value,
+                          profession: e.target.value as unknown as Profession,
                         }))
                       }
-                      className='w-full text-center bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
-                    />
+                      id=''
+                      className='w-full  text-center  bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
+                    >
+                      <option value='full_stack_developer'>
+                        Full Stack Developer
+                      </option>
+                      <option value='ui_ux_designer'>UI/UX Designer</option>
+                      <option value='frontend_developer'>
+                        Frontend Developer
+                      </option>
+                      <option value='backend_developer'>
+                        Backend Developer
+                      </option>
+                      <option value='mobile_developer'>Mobile Developer</option>
+                      <option value='digital_marketer'>Digital Marketer</option>
+                      <option value='product_designer'>Product Designer</option>
+                      <option value='data_analyst'>Data Analyst</option>
+                      <option value='data_engineer'>Data Engineer</option>
+                    </select>
                   </div>
                 ) : (
                   <div className='mt-4'>
@@ -253,7 +272,7 @@ export default function ProfilePage() {
                       {profileData.name}
                     </h2>
                     <p className='text-gray-600 dark:text-gray-400 mt-1'>
-                      {profileData.title}
+                      {snakeToProfession(profileData.profession)}
                     </p>
                   </div>
                 )}
@@ -261,25 +280,12 @@ export default function ProfilePage() {
 
               {/* Contact Info */}
               <div className='space-y-4'>
+
                 <div className='flex items-center space-x-3'>
                   <Mail className='h-5 w-5 text-gray-400' />
-                  {isEditing ? (
-                    <input
-                      type='email'
-                      value={editData.email}
-                      onChange={(e) =>
-                        setEditData((prev) => ({
-                          ...prev,
-                          email: e.target.value,
-                        }))
-                      }
-                      className='flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
-                    />
-                  ) : (
-                    <span className='text-gray-700 dark:text-gray-300 text-sm'>
-                      {profileData.email}
-                    </span>
-                  )}
+                  <span className='text-gray-700 dark:text-gray-300 text-sm'>
+                    {profileData.email}
+                  </span>
                 </div>
 
                 <div className='flex items-center space-x-3'>
@@ -475,7 +481,7 @@ export default function ProfilePage() {
                   placeholder='Tell us about yourself...'
                 />
               ) : (
-                <p className='text-gray-700 dark:text-gray-300 leading-relaxed'>
+                <p className='text-gray-700 dark:text-gray-300 text-sm leading-relaxed'>
                   {profileData.about}
                 </p>
               )}
