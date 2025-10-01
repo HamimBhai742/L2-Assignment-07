@@ -13,7 +13,8 @@ import {
   X,
   Settings,
   LogOut,
-  ChevronRight
+  ChevronRight,
+  Book
 } from 'lucide-react';
 import { ThemeToggle } from '@/components/toggle/ThemeToggleBtn';
 
@@ -22,7 +23,7 @@ const navigationItems = [
   { name: 'Profile', href: '/dashboard/profile', icon: User },
   { name: 'Projects', href: '/dashboard/projects', icon: FolderOpen },
   { name: 'Create Blog', href: '/dashboard/create-blog', icon: BookOpen },
-  { name: 'Messages', href: '/dashboard/messages', icon: Mail },
+  { name: 'My Blogs', href: '/dashboard/my-blogs', icon: Book },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
 

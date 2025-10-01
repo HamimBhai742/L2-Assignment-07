@@ -4,14 +4,18 @@ export interface BlogFormData {
   description: string;
   category: string;
   tags: string[];
+  status: 'draft' | 'published';
   thumbnail: File[] | null;
 }
 
-export interface BlogPost extends BlogFormData {
+export interface BlogPost extends Omit<BlogFormData, 'thumbnail'> {
   id: string;
   slug: string;
+  thumbnail: string;
   createdAt: string;
   updatedAt: string;
+  status: 'draft' | 'published';
+  readTime: number;
 }
 
 export const blogCategories = [
@@ -28,3 +32,9 @@ export const blogCategories = [
 ] as const;
 
 export type BlogCategory = (typeof blogCategories)[number];
+
+export interface BlogFilters {
+  category?: string;
+  status?: 'draft' | 'published' | 'all';
+  search?: string;
+}

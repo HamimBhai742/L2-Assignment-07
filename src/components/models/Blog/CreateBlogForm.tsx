@@ -180,56 +180,73 @@ export default function CreateBlogForm() {
 
             {/* Tags and Thumbnail */}
             <div className='grid grid-cols-1 lg:grid-cols-5 gap-6'>
-              {/* Tags */}
-              <div className='space-y-3 col-span-3'>
-                <label className='block text-sm font-semibold text-gray-700 dark:text-gray-300'>
-                  Tags ({tags.length}/10)
-                </label>
+              <div className='col-span-3 space-y-4'>
+                {/* Tags */}
+                <div className='space-y-3'>
+                  <label className='block text-sm font-semibold text-gray-700 dark:text-gray-300'>
+                    Tags ({tags.length}/10)
+                  </label>
 
-                {tags.length > 0 && (
-                  <div className='flex flex-wrap gap-2'>
-                    {tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className='inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700'
-                      >
-                        {tag}
-                        <button
-                          type='button'
-                          onClick={() => removeTag(tag)}
-                          className='ml-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 transition-colors'
+                  {tags.length > 0 && (
+                    <div className='flex flex-wrap gap-2'>
+                      {tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className='inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700'
                         >
-                          <X className='w-4 h-4' />
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                )}
+                          {tag}
+                          <button
+                            type='button'
+                            onClick={() => removeTag(tag)}
+                            className='ml-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 transition-colors'
+                          >
+                            <X className='w-4 h-4' />
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
-                <div className='flex gap-2 items-center'>
-                  <input
-                    value={tagInput}
-                    onChange={(e) => setTagInput(e.target.value)}
-                    onKeyPress={(e) =>
-                      e.key === 'Enter' && (e.preventDefault(), addTag())
-                    }
-                    disabled={tags.length >= 10}
-                    className='flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white disabled:opacity-50 transition-all duration-200'
-                    placeholder={
-                      tags.length >= 10
-                        ? 'Maximum tags reached'
-                        : 'Add a tag and press Enter...'
-                    }
-                  />
-                  <Button
-                    type='button'
-                    onClick={addTag}
-                    disabled={!tagInput.trim() || tags.length >= 10}
-                    variant='outline'
-                    className='px-4'
+                  <div className='flex gap-2 items-center'>
+                    <input
+                      value={tagInput}
+                      onChange={(e) => setTagInput(e.target.value)}
+                      onKeyPress={(e) =>
+                        e.key === 'Enter' && (e.preventDefault(), addTag())
+                      }
+                      disabled={tags.length >= 10}
+                      className='flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white disabled:opacity-50 transition-all duration-200'
+                      placeholder={
+                        tags.length >= 10
+                          ? 'Maximum tags reached'
+                          : 'Add a tag and press Enter...'
+                      }
+                    />
+                    <Button
+                      type='button'
+                      onClick={addTag}
+                      disabled={!tagInput.trim() || tags.length >= 10}
+                      variant='outline'
+                      className='px-4'
+                    >
+                      <Plus className='w-4 h-4' />
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Status */}
+                <div className='space-y-2'>
+                  <label className='block text-sm font-semibold text-gray-700 dark:text-gray-300'>
+                    Status
+                  </label>
+                  <select
+                    {...register('status')}
+                    className=' lg:w-fit select select-md h-12 px-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2  focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all duration-200'
                   >
-                    <Plus className='w-4 h-4' />
-                  </Button>
+                    <option value=''>Select a Status</option>
+                    <option value='published'>Published</option>
+                    <option value='draft'>Draft</option>
+                  </select>
                 </div>
               </div>
               {/* Thumbnail */}
@@ -268,7 +285,10 @@ export default function CreateBlogForm() {
                         className='w-full h-40 md:h-48 object-cover rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm'
                       />
 
-                      <span onClick={() => setThumb(null)} className='absolute top-1 right-1 hover:cursor-pointer'>
+                      <span
+                        onClick={() => setThumb(null)}
+                        className='absolute top-1 right-1 hover:cursor-pointer'
+                      >
                         <TiDeleteOutline className=' text-3xl text-white dark:text-gray-400' />
                       </span>
                     </div>
