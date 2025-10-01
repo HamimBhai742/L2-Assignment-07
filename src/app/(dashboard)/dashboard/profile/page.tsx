@@ -125,8 +125,8 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className='min-h-screen bg-gray-50 dark:bg-gray-900 p-4 lg:p-8'>
-      <div className='max-w-6xl mx-auto'>
+    <div className='min-h-screen bg-gray-50 dark:bg-gray-900 p-4 lg:p-4'>
+      <div className='max-w-7xl mx-auto'>
         {/* Header */}
         <div className='mb-8'>
           <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
@@ -168,13 +168,12 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+        <div className='grid grid-cols-1 lg:grid-cols-5 gap-4'>
           {/* Profile Card */}
-          <div className='lg:col-span-1'>
+          <div className='lg:col-span-2'>
             <div className='bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6'>
               {/* Avatar Section */}
               <div className='text-center mb-6'>
-                
                 <div className='relative inline-block'>
                   {profileData?.picture &&
                   editData.picture !== null &&
@@ -280,7 +279,6 @@ export default function ProfilePage() {
 
               {/* Contact Info */}
               <div className='space-y-4'>
-
                 <div className='flex items-center space-x-3'>
                   <Mail className='h-5 w-5 text-gray-400' />
                   <span className='text-gray-700 dark:text-gray-300 text-sm'>
@@ -300,7 +298,7 @@ export default function ProfilePage() {
                           phone: e.target.value,
                         }))
                       }
-                      className='flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
+                      className='flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2  text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
                     />
                   ) : (
                     <span className='text-gray-700 dark:text-gray-300 text-sm'>
@@ -462,9 +460,8 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
-
           {/* Main Content */}
-          <div className='lg:col-span-2 space-y-8'>
+          <div className='lg:col-span-3 space-y-8'>
             {/* Bio Section */}
             <div className='bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6'>
               <h3 className='text-lg font-semibold text-gray-900 dark:text-white mb-4'>
@@ -576,6 +573,7 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
