@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { ImSpinner9 } from 'react-icons/im';
 import {
   Edit,
   Save,
@@ -24,6 +25,7 @@ import { snakeToProfession } from '@/helpers/sanakeToProfe';
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
   const [profileData, setProfileData] = useState<ProfileData>({
     name: '',
     email: '',
@@ -64,6 +66,7 @@ export default function ProfilePage() {
   console.log(profileData);
   console.log(editData);
   const handleSave = async () => {
+    setIsUploading(true);
     try {
       const thumbnailUrl = await UploadCloudinary({
         thumbnail: editData.picture,
@@ -85,13 +88,16 @@ export default function ProfilePage() {
       const data = await res.json();
       console.log(data);
       if (data?.success) {
+        setIsUploading(false);
         setProfileData(data?.data);
         toast.success(data?.message);
       }
       if (!data?.success) {
+        setIsUploading(false);
         toast.error(data?.message);
       }
     } catch (error) {
+      setIsUploading(false);
       toast.error('Error updating profile');
       console.log(error);
     } finally {
@@ -160,8 +166,17 @@ export default function ProfilePage() {
                   onClick={handleSave}
                   className='flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-medium'
                 >
-                  <Save className='h-5 w-5' />
-                  <span>Save Chathumbnailnges</span>
+                  {isUploading ? (
+                    <>
+                      <ImSpinner9 className='animate-spin h-5 w-5' />
+                      <span>Saving...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Save className='h-5 w-5' />
+                      <span>Save Changes</span>
+                    </>
+                  )}
                 </button>
               </div>
             )}
@@ -573,7 +588,6 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

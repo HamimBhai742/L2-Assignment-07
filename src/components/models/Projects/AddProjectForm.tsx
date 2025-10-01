@@ -40,7 +40,7 @@ export default function AddProjectForm({
 
     try {
       if (thumbnailUrl) {
-        formData.thumbnail = thumbnailUrl?.secure_url;
+        formData.thumbnail = thumbnailUrl;
       }
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/projects/create`,

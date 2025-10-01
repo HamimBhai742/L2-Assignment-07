@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { Plus, FolderOpen, BookOpen, User, Settings } from 'lucide-react';
 import { AddProjectForm } from '@/components/models/Projects';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
   const [showProjectForm, setShowProjectForm] = useState(false);
+  const router = useRouter();
 
   const quickActions = [
     {
@@ -19,14 +21,14 @@ export default function DashboardPage() {
       title: 'Write Blog',
       description: 'Share your thoughts and experiences',
       icon: BookOpen,
-      action: () => console.log('Blog'),
+      action: () => router.push('/dashboard/create-blog'),
       color: 'from-green-500 to-teal-600'
     },
     {
       title: 'Update Profile',
       description: 'Keep your information current',
       icon: User,
-      action: () => console.log('Profile'),
+      action: () => router.push('/dashboard/profile'),
       color: 'from-orange-500 to-red-600'
     },
     {
@@ -128,7 +130,7 @@ export default function DashboardPage() {
               </div>
               <span className="text-gray-500 dark:text-gray-400 text-sm">2 hours ago</span>
             </div>
-            
+
             <div className="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
               <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
                 <BookOpen className="h-5 w-5 text-green-600 dark:text-green-400" />
@@ -144,7 +146,12 @@ export default function DashboardPage() {
 
         {/* Project Creation Modal */}
         {showProjectForm && (
-          <AddProjectForm onClose={() => setShowProjectForm(false)} />
+          <AddProjectForm
+            onClose={() => setShowProjectForm(false)}
+            onAdd={(project) => {
+              setShowProjectForm(false);
+            }}
+          />
         )}
       </div>
     </div>

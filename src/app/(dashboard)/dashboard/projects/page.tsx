@@ -82,14 +82,6 @@ export default function ProjectsPage() {
           setShowAddForm={setShowAddForm}
           showAddForm={showAddForm}
         />
-
-        {/* Add Project Modal
-        {showAddForm && (
-          <AddProjectForm
-            onClose={() => setShowAddForm(false)}
-            setLoading={setLoading}
-          />
-        )} */}
       </div>
     </div>
   );
