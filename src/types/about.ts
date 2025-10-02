@@ -3,7 +3,6 @@ export interface AboutData {
   profession: string;
   email: string;
   phone: string;
-  role: string;
   picture: string;
   bio: string;
   address: string;

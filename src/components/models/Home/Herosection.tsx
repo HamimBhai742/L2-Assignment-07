@@ -4,8 +4,8 @@ import React from 'react';
 
 export default function Herosection() {
   return (
-    <section className='relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16'>
-      <div className='max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center'>
+    <section className='relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 max-lg:pt-20 lg:pt-16'>
+      <div className='max-w-6xl w-full mx-auto flex max-lg:flex-col-reverse gap-6  justify-between items-center'>
         <div className='text-center lg:text-left'>
           <h1 className='text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6'>
             Hi, I'm <span className='text-blue-600 dark:text-blue-400'>John Doe</span>
