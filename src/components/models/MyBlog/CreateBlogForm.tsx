@@ -8,13 +8,14 @@ import { Plus, X, Image as FileText, Upload } from 'lucide-react';
 import { TiDeleteOutline } from 'react-icons/ti';
 import UploadCloudinary from '@/upload/UploadCloudinary';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function CreateBlogForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
   const [thumb, setThumb] = useState<File | null>(null);
   const [tagInput, setTagInput] = useState('');
-
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -49,12 +50,9 @@ export default function CreateBlogForm() {
   const onSubmit = async (data: BlogFormData) => {
     setIsSubmitting(true);
     try {
-      const file = data.thumbnail ? (data.thumbnail as File[])[0] : null;
-      setThumb(file);
       const thumbnailUrl = await UploadCloudinary({
-        thumbnail: file,
+        thumbnail: thumb,
       });
-
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/blog/create`,
         {
@@ -76,6 +74,8 @@ export default function CreateBlogForm() {
         toast.success(result?.message);
         reset();
         setTags([]);
+        setThumb(null);
+        router.push('/dashboard/my-blogs');
       }
       if (!result?.success) {
         toast.error(result?.message);
@@ -86,8 +86,6 @@ export default function CreateBlogForm() {
       setIsSubmitting(false);
     }
   };
-
-  console.log(thumb);
   return (
     <div className='bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-4 px-4'>
       <div className='max-w-7xl'>

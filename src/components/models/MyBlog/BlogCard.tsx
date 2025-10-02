@@ -2,6 +2,8 @@
 
 import { BlogPost } from '@/types/blog.types';
 import { Calendar, Clock, Edit, Trash2, Eye } from 'lucide-react';
+import { format } from "timeago.js";
+
 import Image from 'next/image';
 
 interface BlogCardProps {
@@ -32,7 +34,7 @@ export const BlogCard = ({ blog, onEdit, onDelete, onView }: BlogCardProps) => {
         />
         <div className="absolute top-3 left-3">
           <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-            blog.status === 'published' 
+            blog.status === 'published'
               ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
               : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
           }`}>
@@ -47,7 +49,7 @@ export const BlogCard = ({ blog, onEdit, onDelete, onView }: BlogCardProps) => {
           <Calendar className="w-4 h-4" />
           <span>{formatDate(blog.createdAt)}</span>
           <Clock className="w-4 h-4 ml-2" />
-          <span>{blog.readTime} min read</span>
+          <span>{format(blog.updatedAt)}</span>
         </div>
 
         <h3 className="font-semibold text-lg text-gray-900 dark:text-white mb-2 line-clamp-2">
@@ -68,9 +70,12 @@ export const BlogCard = ({ blog, onEdit, onDelete, onView }: BlogCardProps) => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => onView(blog)}
-              className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
+              className="p-2 flex gap-2 items-center  text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
               title="View"
             >
+             <span className='text-sm'>
+              {blog.views}
+             </span>
               <Eye className="w-4 h-4" />
             </button>
             <button

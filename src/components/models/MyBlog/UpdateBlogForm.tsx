@@ -1,68 +1,19 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { BlogFormData, BlogPost, blogCategories } from '@/types/blog.types';
+import { BlogFormData,  blogCategories } from '@/types/blog.types';
 import toast from 'react-hot-toast';
-import {
-  ArrowLeft,
-  Save,
-  Eye,
-  X,
-  Plus,
-  Upload,
-  Image as ImageIcon,
-} from 'lucide-react';
+import { Save, X, Plus, Upload } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
+import { getMyUpdateBlog } from '@/actions/myBlogs';
+import { updateMyBlog } from '@/actions/myBlogUpById';
+import Loding from './Loding';
+import UploadCloudinary from '@/upload/UploadCloudinary';
 
 interface UpdateBlogFormProps {
   blogId: string;
 }
-
-// Mock function to get blog by ID - replace with actual API call
-const getBlogById = async (id: string): Promise<BlogPost | null> => {
-  // Mock data - replace with actual API call
-  const mockBlog: BlogPost = {
-    id: '1',
-    title: 'Getting Started with Next.js 15',
-    description:
-      'Learn how to build modern web applications with the latest features of Next.js 15.',
-    content: `# Getting Started with Next.js 15
-
-Next.js 15 brings exciting new features and improvements that make building web applications even more powerful and efficient.
-
-## Key Features
-
-- **Improved Performance**: Enhanced rendering and optimization
-- **Better Developer Experience**: New tools and debugging capabilities
-- **Enhanced Security**: Built-in security improvements
-
-## Getting Started
-
-To create a new Next.js 15 project:
-
-\`\`\`bash
-npx create-next-app@latest my-app
-cd my-app
-npm run dev
-\`\`\`
-
-This will set up a new project with all the latest features enabled.`,
-    category: 'Web_Development',
-    tags: ['nextjs', 'react', 'typescript'],
-    thumbnail:
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800',
-    slug: 'getting-started-nextjs-15',
-    createdAt: '2024-01-15T10:00:00Z',
-    updatedAt: '2024-01-15T10:00:00Z',
-    status: 'published',
-    readTime: 8,
-  };
-
-  return id === '1' ? mockBlog : null;
-};
 
 export const UpdateBlogForm = ({ blogId }: UpdateBlogFormProps) => {
   const router = useRouter();
@@ -71,43 +22,29 @@ export const UpdateBlogForm = ({ blogId }: UpdateBlogFormProps) => {
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [thumbnailPreview, setThumbnailPreview] = useState<string>('');
-  const [blog, setBlog] = useState<BlogPost | null>(null);
-  const [showPreview, setShowPreview] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    watch,
     reset,
   } = useForm<BlogFormData>();
-
-  const watchedContent = watch('content');
 
   // Load blog data
   useEffect(() => {
     const loadBlog = async () => {
       try {
-        const blogData = await getBlogById(blogId);
-        if (blogData) {
-          setBlog(blogData);
-          setTags(blogData.tags);
-          setThumbnailPreview(blogData.thumbnail);
-
-          // Populate form with existing data
-          reset({
-            title: blogData.title,
-            description: blogData.description,
-            content: blogData.content,
-            category: blogData.category,
-            tags: blogData.tags,
-          });
-        } else {
-          toast.error('Blog not found');
-          router.push('/dashboard/my-blogs');
+        const data = await getMyUpdateBlog(blogId);
+        if (data?.success) {
+          // setBlog(data?.data);
+          reset(data?.data);
+          setTags(data?.data?.tags);
+          setThumbnailPreview(data?.data?.thumbnail);
+          setIsLoading(false);
         }
       } catch (error) {
+        console.log(error);
         toast.error('Failed to load blog');
         router.push('/dashboard/my-blogs');
       } finally {
@@ -152,12 +89,23 @@ export const UpdateBlogForm = ({ blogId }: UpdateBlogFormProps) => {
   const onSubmit = async (data: BlogFormData) => {
     setIsSubmitting(true);
     try {
-      // Mock API call - replace with actual update logic
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (data?.thumbnail && typeof data?.thumbnail !== 'string') {
+        data.thumbnail = await UploadCloudinary({
+          thumbnail: data.thumbnail[0],
+        });
+      }
       console.log(data);
-      toast.success('Blog updated successfully!');
-      router.push('/dashboard/my-blogs');
+
+      const result = await updateMyBlog(blogId, data);
+      if (result?.success) {
+        toast.success(result?.message);
+        router.push('/dashboard/my-blogs');
+      }
+      if (!result?.success) {
+        toast.error(result?.message);
+      }
     } catch (error) {
+      console.log(error);
       toast.error('Failed to update blog');
     } finally {
       setIsSubmitting(false);
@@ -165,18 +113,7 @@ export const UpdateBlogForm = ({ blogId }: UpdateBlogFormProps) => {
   };
 
   if (isLoading) {
-    return (
-      <div className='max-w-4xl mx-auto p-6'>
-        <div className='animate-pulse'>
-          <div className='h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-6'></div>
-          <div className='space-y-4'>
-            <div className='h-12 bg-gray-200 dark:bg-gray-700 rounded'></div>
-            <div className='h-32 bg-gray-200 dark:bg-gray-700 rounded'></div>
-            <div className='h-64 bg-gray-200 dark:bg-gray-700 rounded'></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loding />;
   }
 
   return (
