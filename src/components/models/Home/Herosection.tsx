@@ -1,18 +1,39 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link';
 import React from 'react';
+import Typewriter from '@/components/ui/typewriter';
 
 export default function Herosection() {
+  const roles = [
+    'Full Stack Developer',
+    'Frontend Specialist',
+    'Backend Engineer',
+    'UI/UX Designer',
+  ];
+
   return (
     <section className='relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 max-lg:pt-20 lg:pt-16'>
       <div className='max-w-6xl w-full mx-auto flex max-lg:flex-col-reverse gap-6  justify-between items-center'>
         <div className='text-center lg:text-left'>
           <h1 className='text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6'>
-            Hi, I'm <span className='text-blue-600 dark:text-blue-400'>John Doe</span>
+            Hi, I'm{' '}
+            <span className='text-blue-600 dark:text-blue-400'>
+              <Typewriter
+                texts={["Hamim"]}
+                speed={100}
+                deleteSpeed={50}
+                pauseTime={2000}
+              />
+            </span>
           </h1>
           <div className='h-16 mb-8'>
             <p className='text-xl sm:text-2xl text-gray-600 dark:text-gray-300 transition-all duration-500'>
-              Full Stack Developer
+              <Typewriter
+                texts={roles}
+                speed={100}
+                deleteSpeed={50}
+                pauseTime={2000}
+              />
             </p>
           </div>
           <p className='text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl'>
