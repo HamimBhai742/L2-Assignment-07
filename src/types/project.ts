@@ -13,17 +13,17 @@ export interface Project {
   status: ProjectStatus;
 }
 
-export type ProjectCategory = 
-  | 'Web Development' 
-  | 'Mobile App' 
-  | 'Desktop App' 
+export type ProjectCategory =
+  | 'Web Development'
+  | 'Mobile App'
+  | 'Desktop App'
   | 'API Development'
   | 'UI/UX Design'
   | 'Other';
 
-export type ProjectStatus = 
-  | 'completed' 
-  | 'in-progress' 
+export type ProjectStatus =
+  | 'completed'
+  | 'in_progress'
   | 'planned';
 
 export interface ProjectsClientProps {

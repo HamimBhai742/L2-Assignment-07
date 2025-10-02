@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link';
 import React from 'react';
+import { FiExternalLink, FiGithub } from 'react-icons/fi';
 
 export default function ProjectSection() {
   return (
@@ -56,18 +57,22 @@ export default function ProjectSection() {
                     </span>
                   ))}
                 </div>
-                <div className='flex gap-4'>
+                 <div className="flex items-center gap-4 pl-3 mt-3">
                   <Link
-                    href='#'
-                    className='text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium'
+                    href={"#"}
+                    target="_blank"
+                    className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                    title="Live Demo"
                   >
-                    Live Demo
+                    <FiExternalLink className="w-5 h-5" />
                   </Link>
                   <Link
-                    href='#'
-                    className='text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium'
+                    href={"#"}
+                    target="_blank"
+                    className="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors"
+                    title="GitHub Repository"
                   >
-                    Source Code
+                    <FiGithub className="w-5 h-5" />
                   </Link>
                 </div>
               </div>

@@ -1,36 +1,26 @@
-'use client';
-
-import { useState, useMemo } from 'react';
-import { Project, ProjectCategory, ProjectStatus } from '@/types/project';
-import ProjectFilter from './ProjectFilter';
-import ProjectGrid from './ProjectGrid';
-
-interface ProjectsClientProps {
-  projects: Project[];
-}
+import { ProjectsClientProps } from '@/types/project';
+import ProjectListItem from './ProjectListItem';
 
 const ProjectsClient = ({ projects }: ProjectsClientProps) => {
-  const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | 'All'>('All');
-  const [selectedStatus, setSelectedStatus] = useState<ProjectStatus | 'All'>('All');
-
-  const categories = useMemo(() => {
-    const uniqueCategories = Array.from(new Set(projects.map(p => p.category)));
-    return uniqueCategories as ProjectCategory[];
-  }, [projects]);
-
-  const filteredProjects = useMemo(() => {
-    return projects.filter(project => {
-      const categoryMatch = selectedCategory === 'All' || project.category === selectedCategory;
-      const statusMatch = selectedStatus === 'All' || project.status === selectedStatus;
-      return categoryMatch && statusMatch;
-    });
-  }, [projects, selectedCategory, selectedStatus]);
+  if (projects.length === 0) {
+    return (
+      <div className='text-center py-12'>
+        <div className='text-gray-400 dark:text-gray-500 text-6xl mb-4'>📁</div>
+        <h3 className='text-xl font-medium text-gray-900 dark:text-white mb-2'>
+          No projects found
+        </h3>
+        <p className='text-gray-600 dark:text-gray-400'>
+          Try adjusting your filters to see more projects.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:p-8">
-        <ProjectGrid projects={filteredProjects} />
-      </div>
+    <div className='space-y-6 pt-10'>
+      {projects.map((project) => (
+        <ProjectListItem key={project.id} project={project} />
+      ))}
     </div>
   );
 };

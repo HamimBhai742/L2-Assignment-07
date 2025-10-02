@@ -10,6 +10,7 @@ export interface Project {
   category: string;
   startDate: string;
   endDate?: string;
+  features: string;
   status: 'completed' | 'in_progress' | 'planned';
 }
 

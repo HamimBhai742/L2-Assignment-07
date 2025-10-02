@@ -21,8 +21,8 @@ export default function Herosection() {
               <Typewriter
                 texts={["Hamim"]}
                 speed={100}
-                deleteSpeed={50}
-                pauseTime={2000}
+                deleteSpeed={100}
+                pauseTime={3000}
               />
             </span>
           </h1>
@@ -31,7 +31,7 @@ export default function Herosection() {
               <Typewriter
                 texts={roles}
                 speed={100}
-                deleteSpeed={50}
+                deleteSpeed={60}
                 pauseTime={2000}
               />
             </p>
