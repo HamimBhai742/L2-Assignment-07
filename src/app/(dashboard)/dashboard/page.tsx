@@ -7,9 +7,8 @@ export default async function Dashboard() {
     cache: 'no-store',
   });
   const data = await res.json();
-  console.log(data);
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-6'>
+    <div className='min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 md:p-4'>
       <div className='max-w-7xl mx-auto'>
         <DashboardOverview stats={data?.data?.stats} />
         <QuickActions />
