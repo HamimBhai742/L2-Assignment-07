@@ -9,16 +9,21 @@ import {
   Facebook,
   Calendar,
   User,
-
 } from 'lucide-react';
-import { aboutData } from '@/lib/aboutData';
+import { snakeToProfession } from '@/helpers/sanakeToProfe';
+// import { aboutData } from '@/lib/aboutData';
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/about`, {
+    cache: 'no-store',
+  });
+  const { data: aboutData } = await res.json();
+  console.log(aboutData);
   return (
     <div className='min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800'>
       <div className='container mx-auto px-4 py-20'>
         {/* Hero Section */}
-        <div className='max-w-5xl mx-auto'>
+        <div className='max-w-6xl mx-auto'>
           <div className='bg-white dark:bg-gray-800 rounded-3xl shadow-lg  overflow-hidden'>
             <div className='relative h-48 bg-gradient-to-r from-blue-600 to-purple-600'>
               <div className='absolute inset-0 bg-black/20'></div>
@@ -42,13 +47,13 @@ export default function AboutPage() {
                     {aboutData.name}
                   </h1>
                   <p className='text-xl text-blue-600 dark:text-blue-400 font-semibold mb-2'>
-                    {aboutData.profession}
+                    {snakeToProfession(aboutData.profession)}
                   </p>
                 </div>
               </div>
 
               {/* Quick Contact */}
-              <div className='grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 mb-4'>
+              <div className='grid grid-cols-1 gap-4 md:grid-cols-3  mb-4'>
                 <div className='flex items-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl'>
                   <Mail className='w-5 h-5 text-blue-600 dark:text-blue-400 mr-3' />
                   <div>
@@ -73,7 +78,7 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                <div className='flex lg:col-span-2 items-center p-4 bg-red-50 dark:bg-red-900/20 rounded-xl'>
+                <div className='flex  items-center p-4 bg-red-50 dark:bg-red-900/20 rounded-xl'>
                   <MapPin className='w-5 h-5 text-red-600 dark:text-red-400 mr-3' />
                   <div>
                     <p className='text-sm text-red-600 dark:text-red-400 font-medium'>

@@ -31,7 +31,7 @@ export default function ProfilePage() {
     email: '',
     phone: '',
     address: '',
-    about: '',
+    bio: '',
     profession: Profession.FULL_STACK_DEVELOPER,
     website: '',
     experience: '',
@@ -63,8 +63,7 @@ export default function ProfilePage() {
     setEditData(profileData);
     setIsEditing(true);
   };
-  console.log(profileData);
-  console.log(editData);
+
   const handleSave = async () => {
     setIsUploading(true);
     try {
@@ -484,9 +483,9 @@ export default function ProfilePage() {
               </h3>
               {isEditing ? (
                 <textarea
-                  value={editData.about}
+                  value={editData.bio}
                   onChange={(e) =>
-                    setEditData((prev) => ({ ...prev, about: e.target.value }))
+                    setEditData((prev) => ({ ...prev, bio: e.target.value }))
                   }
                   rows={4}
                   className='w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none'
@@ -494,7 +493,7 @@ export default function ProfilePage() {
                 />
               ) : (
                 <p className='text-gray-700 dark:text-gray-300 text-sm leading-relaxed'>
-                  {profileData.about}
+                  {profileData.bio}
                 </p>
               )}
             </div>

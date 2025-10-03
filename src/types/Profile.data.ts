@@ -3,7 +3,7 @@ export interface ProfileData {
   email: string;
   phone: string;
   address: string;
-  about: string;
+  bio: string;
   profession: Profession;
   website: string;
   experience: string;
