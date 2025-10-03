@@ -7,14 +7,7 @@ import Image from 'next/image';
 import { snakeToProfession } from '@/helpers/sanakeToProfe';
 import { Profession } from '@/types/Profile.data';
 export default function Herosection({ user }: { user: User }) {
-  const roles = [
-    'Full Stack Developer',
-    'Frontend Specialist',
-    'Backend Engineer',
-    'UI/UX Designer',
-  ];
-
-  return (
+    return (
     <section className='relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 max-lg:pt-20 lg:pt-16'>
       <div className='max-w-6xl w-full mx-auto flex max-lg:flex-col-reverse gap-6  justify-between items-center'>
         <div className='text-center lg:text-left'>
