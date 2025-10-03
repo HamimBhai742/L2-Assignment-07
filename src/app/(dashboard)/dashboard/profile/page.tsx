@@ -22,6 +22,11 @@ import ProfileSkeleton from '@/components/models/Profile/ProfileSkeleton';
 import { Profession, ProfileData } from '@/types/Profile.data';
 import UploadCloudinary from '@/upload/UploadCloudinary';
 import { snakeToProfession } from '@/helpers/sanakeToProfe';
+
+// export const metadata = {
+//   title: 'Profile',
+//   description: 'Manage and update your profile information.',
+// }
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -543,49 +548,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Stats Section */}
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-              <div className='bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 text-center'>
-                <div className='w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mx-auto mb-3'>
-                  <span className='text-2xl font-bold text-blue-600 dark:text-blue-400'>
-                    12
-                  </span>
-                </div>
-                <h4 className='text-lg font-semibold text-gray-900 dark:text-white'>
-                  Projects
-                </h4>
-                <p className='text-gray-600 dark:text-gray-400 text-sm'>
-                  Completed
-                </p>
-              </div>
-
-              <div className='bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 text-center'>
-                <div className='w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mx-auto mb-3'>
-                  <span className='text-2xl font-bold text-green-600 dark:text-green-400'>
-                    8
-                  </span>
-                </div>
-                <h4 className='text-lg font-semibold text-gray-900 dark:text-white'>
-                  Blog Posts
-                </h4>
-                <p className='text-gray-600 dark:text-gray-400 text-sm'>
-                  Published
-                </p>
-              </div>
-
-              <div className='bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 text-center'>
-                <div className='w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mx-auto mb-3'>
-                  <span className='text-2xl font-bold text-purple-600 dark:text-purple-400'>
-                    1.2k
-                  </span>
-                </div>
-                <h4 className='text-lg font-semibold text-gray-900 dark:text-white'>
-                  Profile Views
-                </h4>
-                <p className='text-gray-600 dark:text-gray-400 text-sm'>
-                  This month
-                </p>
-              </div>
-            </div>
+          
           </div>
         </div>
       </div>

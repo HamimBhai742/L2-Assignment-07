@@ -6,10 +6,14 @@ import { Plus, Grid3X3, List, Search } from 'lucide-react';
 import ProjectsList from '@/components/models/MyProjects/ProjectsList';
 import { ProjectFiltersType } from '@/types/projects.type';
 
+// export const metadata = {
+//   title: 'My Projects',
+//   description: 'Manage and showcase your portfolio projects.',
+// }
+
 export default function MyProjectsPage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState<ProjectFiltersType>({
     search: '',
     status: 'all',

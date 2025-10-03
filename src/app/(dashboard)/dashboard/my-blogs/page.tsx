@@ -10,6 +10,11 @@ import { BlogPreviewModal } from '@/components/models/MyBlog/BlogPreviewModal';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
+// export const metadata = {
+//   title: 'My Blogs',
+//   description: 'Manage and publish your blog posts.',
+// };
+
 const MyBlogsPage = () => {
   const router = useRouter();
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
