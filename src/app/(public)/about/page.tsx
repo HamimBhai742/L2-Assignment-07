@@ -146,6 +146,7 @@ export default async function AboutPage() {
                       Website
                     </p>
                     <a
+                      target='_blank'
                       href={aboutData.website}
                       className='text-blue-600 dark:text-blue-400 hover:underline font-medium'
                     >
@@ -181,6 +182,7 @@ export default async function AboutPage() {
               </h2>
               <div className='space-y-4'>
                 <a
+                  target='_blank'
                   href={aboutData.githubUrl}
                   className='flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:shadow-md transition-all duration-300 hover:scale-105 group'
                 >
@@ -196,6 +198,7 @@ export default async function AboutPage() {
                 </a>
 
                 <a
+                  target='_blank'
                   href={aboutData.linkedInUrl}
                   className='flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:shadow-md transition-all duration-300 hover:scale-105 group'
                 >
@@ -211,6 +214,7 @@ export default async function AboutPage() {
                 </a>
 
                 <a
+                  target='_blank'
                   href={aboutData.facebookUrl}
                   className='flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:shadow-md transition-all duration-300 hover:scale-105 group'
                 >
