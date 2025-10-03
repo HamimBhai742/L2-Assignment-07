@@ -1,16 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useState } from 'react';
 import { Plus, Grid3X3, List, Search } from 'lucide-react';
 // import { AddProjectForm } from '@/components/models/Projects';
 import ProjectsList from '@/components/models/MyProjects/ProjectsList';
+import { ProjectFiltersType } from '@/types/projects.type';
 
 export default function MyProjectsPage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [filters, setFilters] = useState<ProjectFiltersType>({
+    search: '',
+    status: 'all',
+  });
+  console.log(filters);
   return (
-    <div className='min-h-screen bg-gray-50 dark:bg-gray-900 p-4 lg:p-8'>
+    <div className='min-h-screen bg-gray-50 dark:bg-gray-900 p-2 lg:p-8'>
       <div className='max-w-7xl mx-auto'>
         {/* Header */}
         <div className='mb-8'>
@@ -26,7 +32,7 @@ export default function MyProjectsPage() {
 
             <button
               onClick={() => setShowAddForm(true)}
-              className='flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-medium'
+              className='flex max-sm:w-fit items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-medium'
             >
               <Plus className='h-5 w-5' />
               <span>Add Project</span>
@@ -35,17 +41,35 @@ export default function MyProjectsPage() {
         </div>
 
         {/* Controls */}
-        <div className='flex flex-col sm:flex-row gap-4 mb-8'>
+        <div className='flex items-center gap-4 mb-8'>
           {/* Search */}
           <div className='relative flex-1'>
             <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
             <input
               type='text'
               placeholder='Search projects...'
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={filters.search || ''}
+              onChange={(e) =>
+                setFilters({ ...filters, search: e.target.value as any })
+              }
               className='w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
             />
+          </div>
+
+          {/* Status Filter */}
+          <div>
+            <select
+              value={filters.status || 'all'}
+              onChange={(e) =>
+                setFilters({ ...filters, status: e.target.value as any })
+              }
+              className='px-3 h-12 select py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+            >
+              <option value='all'>All Status</option>
+              <option value='completed'>Completed</option>
+              <option value='in_progress'>In Progress</option>
+              <option value='planned'>Planned</option>
+            </select>
           </div>
 
           {/* View Toggle */}
@@ -78,7 +102,7 @@ export default function MyProjectsPage() {
         {/* Projects List */}
         <ProjectsList
           viewMode={viewMode}
-          searchTerm={searchTerm}
+          filter={filters}
           setShowAddForm={setShowAddForm}
           showAddForm={showAddForm}
         />

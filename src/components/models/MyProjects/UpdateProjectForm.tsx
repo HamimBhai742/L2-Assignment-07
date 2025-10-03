@@ -8,6 +8,7 @@ import { cleanObj } from '@/actions/cleanObj';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import DatePicker from 'react-datepicker';
+import UploadCloudinary from '@/upload/UploadCloudinary';
 
 interface UpdateProjectFormProps {
   project: Project;
@@ -38,6 +39,12 @@ export default function UpdateProjectForm({
     e.preventDefault();
     setIsSubmitting(true);
     try {
+      if (formData.thumbnail && typeof formData.thumbnail !== 'string') {
+        const thumbnailUrl = await UploadCloudinary({
+          thumbnail: formData.thumbnail,
+        });
+        formData.thumbnail = thumbnailUrl;
+      }
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/projects/update/${project?.id}`,
         {
@@ -115,7 +122,7 @@ export default function UpdateProjectForm({
             />
           </div>
 
-           <div>
+          <div>
             <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
               Features
             </label>

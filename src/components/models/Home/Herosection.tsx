@@ -2,8 +2,11 @@
 import Link from 'next/link';
 import React from 'react';
 import Typewriter from '@/components/ui/typewriter';
-
-export default function Herosection() {
+import { User } from '@/types/user';
+import Image from 'next/image';
+import { snakeToProfession } from '@/helpers/sanakeToProfe';
+import { Profession } from '@/types/Profile.data';
+export default function Herosection({ user }: { user: User }) {
   const roles = [
     'Full Stack Developer',
     'Frontend Specialist',
@@ -19,7 +22,7 @@ export default function Herosection() {
             Hi, I'm{' '}
             <span className='text-blue-600 dark:text-blue-400'>
               <Typewriter
-                texts={["Hamim"]}
+                texts={[`${user.name} `]}
                 speed={100}
                 deleteSpeed={100}
                 pauseTime={3000}
@@ -29,7 +32,7 @@ export default function Herosection() {
           <div className='h-16 mb-8'>
             <p className='text-xl sm:text-2xl text-gray-600 dark:text-gray-300 transition-all duration-500'>
               <Typewriter
-                texts={roles}
+                texts={[snakeToProfession(user.profession as Profession)]}
                 speed={100}
                 deleteSpeed={60}
                 pauseTime={2000}
@@ -37,9 +40,9 @@ export default function Herosection() {
             </p>
           </div>
           <p className='text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl'>
-            Passionate about creating digital experiences that make a
-            difference. I build modern web applications with clean code and
-            beautiful design.
+            Welcome to my personal portfolio website. Explore my projects,
+            blogs, skills, and achievements in web development with React,
+            Next.js, Node.js, and more.
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start'>
             <Link
@@ -49,7 +52,7 @@ export default function Herosection() {
               View My Work
             </Link>
             <Link
-              href='/contact'
+              href='/about'
               className='border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-8 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors'
             >
               Get In Touch
@@ -58,9 +61,12 @@ export default function Herosection() {
         </div>
         <div className='flex justify-center lg:justify-end'>
           <div className='relative w-80 h-80 rounded-full overflow-hidden shadow-2xl hover:scale-105 transition-transform duration-300'>
-            <div className='w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-6xl font-bold'>
-              JD
-            </div>
+            <Image
+              src={user?.picture || '/placeholder.jpg'}
+              className='w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-6xl font-bold'
+              alt={user.name}
+              fill
+            />
           </div>
         </div>
       </div>

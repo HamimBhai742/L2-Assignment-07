@@ -1,15 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link';
 import Typewriter from '@/components/ui/typewriter';
-export default function AboutSection() {
-  const skills = [
-    'Full Stack Developer',
-    'React Expert',
-    'Node.js Developer',
-    'UI/UX Designer',
-    'Problem Solver',
-  ];
-
+import { User } from '@/types/user';
+export default function AboutSection({ user }: { user: User }) {
   return (
     <section className='py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900'>
       <div className='max-w-7xl mx-auto'>
@@ -22,7 +15,7 @@ export default function AboutSection() {
               <span className='text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-300'>
                 I'm Expert{' '}
                 <Typewriter
-                  texts={skills}
+                  texts={user.skills}
                   speed={100}
                   deleteSpeed={60}
                   pauseTime={2000}
@@ -30,9 +23,7 @@ export default function AboutSection() {
               </span>
             </div>
             <p className='text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto'>
-              Passionate developer with 5+ years of experience creating digital
-              solutions that bridge the gap between design and functionality. I
-              love turning complex problems into simple, beautiful designs.
+             {user.bio.slice(0, 146)}...
             </p>
           </div>
 

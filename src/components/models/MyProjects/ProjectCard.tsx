@@ -7,6 +7,8 @@ import {
   Trash2,
 } from 'lucide-react';
 import { ProjectCardProps } from '@/types/projects.type';
+import Image from 'next/image';
+import { formatStatusLabel } from '@/helpers/status';
 
 const ProjectCard = ({
   project,
@@ -34,18 +36,21 @@ const ProjectCard = ({
               ${viewMode === 'list' ? 'flex flex-col sm:flex-row' : ''}
             `}
     >
-      <div
-        className={`
-              bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center
-              ${viewMode === 'list' ? 'sm:w-48 h-32 sm:h-auto' : 'h-48'}
-            `}
-      >
-        <div className='text-white text-2xl font-bold'>
-          {project.title.charAt(0)}
-        </div>
+      <div>
+        <Image
+          src={project.thumbnail || ''}
+          alt={project.title}
+          width={400}
+          height={400}
+          className={`${
+            viewMode === 'list'
+              ? 'md:h-full h-48 md:w-64 lg:w-80'
+              : 'h-48 md:h-64'
+          }`}
+        />
       </div>
 
-      <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
+      <div className={`p-4 ${viewMode === 'list' ? 'flex-1' : ''}`}>
         <div className='flex items-start justify-between mb-3'>
           <div className='flex-1'>
             <h3 className='text-xl font-bold text-gray-900 dark:text-white mb-1'>
@@ -102,16 +107,25 @@ const ProjectCard = ({
         </div>
 
         <div className='flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700'>
-          <div className='flex items-center text-sm text-gray-500 dark:text-gray-400'>
+          <div className='flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400'>
             <Calendar className='h-4 w-4 mr-1' />
-            {new Date(project?.startDate).toLocaleDateString('en-GB')} -{' '}
-            <Calendar className='h-4 w-4 mr-1' />
-            {project?.endDate
-              ? new Date(project?.endDate).toLocaleDateString('en-GB')
-              : 'Present'}
+            {new Date(project?.startDate).toLocaleDateString('en-GB')} -
+            {project?.endDate ? (
+              <>
+                {' '}
+                <Calendar className='h-4 w-4 mr-1' />
+                {new Date(project?.endDate).toLocaleDateString('en-GB')}
+              </>
+            ) : (
+              <span className=''>{formatStatusLabel(project?.status)}</span>
+            )}
           </div>
 
-          <div className='flex items-center space-x-2'>
+          <div
+            className={`flex items-center space-x-2 ${
+              viewMode === 'list' ? 'max-sm:hidden' : 'hidden'
+            }`}
+          >
             {project?.liveUrl && (
               <a
                 href={project?.liveUrl}
@@ -135,6 +149,34 @@ const ProjectCard = ({
               </a>
             )}
           </div>
+        </div>
+        <div
+          className={`flex mt-3 items-center gap-4 ${
+            viewMode === 'list' ? 'hidden' : ''
+          }`}
+        >
+          {project?.liveUrl && (
+            <a
+              href={project?.liveUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              className=' text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-all duration-200'
+              title='View Live'
+            >
+              <ExternalLink className='h-5 w-5' />
+            </a>
+          )}
+          {project?.githubUrl && (
+            <a
+              href={project?.githubUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              className=' text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200'
+              title='View Code'
+            >
+              <Github className='h-5 w-5' />
+            </a>
+          )}
         </div>
       </div>
     </div>

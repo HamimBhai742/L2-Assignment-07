@@ -10,20 +10,34 @@ export const metadata = {
     'Welcome to my personal portfolio website. Explore my projects, blogs, skills, and achievements in web development with React, Next.js, Node.js, and more.',
 };
 
-export default function Home() {
+export default async function Home() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
+    cache: 'no-store',
+  });
+  const { data: user } = await res.json();
+
+  const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog`, {
+    cache: 'no-store',
+  });
+  const { data: blogs } = await res2.json();
+
+  const res3 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/projects`, {
+    cache: 'no-store',
+  });
+  const { data: projects } = await res3.json();
   return (
     <div className='min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800'>
       {/* Hero Section */}
-      <Herosection />
+      <Herosection user={user} />
 
       {/* About Preview Section */}
-      <AboutSection />
+      <AboutSection user={user} />
 
       {/* Featured Projects Section */}
-      <ProjectSection />
+      <ProjectSection  projects={projects.slice(0, 3)} />
 
       {/* Latest Blog Posts Section */}
-      <BlogsSection />
+      <BlogsSection blogs={blogs.slice(0, 3)} />
 
       {/* Contact/CTA Section */}
       <ContactSection />

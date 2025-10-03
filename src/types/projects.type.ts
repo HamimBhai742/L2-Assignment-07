@@ -23,7 +23,12 @@ export interface ProjectCardProps {
 
 export interface ProjectsListProps {
   viewMode: 'grid' | 'list';
-  searchTerm: string;
+  filter: ProjectFiltersType;
   setShowAddForm: (show: boolean) => void;
   showAddForm: boolean;
+}
+
+export interface ProjectFiltersType {
+  status?: 'completed' | 'in_progress' | 'planned' | 'all';
+  search?: string;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from 'next/image';
 import {
   Mail,
@@ -11,7 +12,7 @@ import {
   User,
 } from 'lucide-react';
 import { snakeToProfession } from '@/helpers/sanakeToProfe';
-// import { aboutData } from '@/lib/aboutData';
+import { Key } from 'react';
 
 export default async function AboutPage() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/about`, {
@@ -116,16 +117,18 @@ export default async function AboutPage() {
               Skills & Technologies
             </h2>
             <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3'>
-              {aboutData.skills.map((skill, index) => (
-                <div
-                  key={index}
-                  className='bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 px-4 py-3 rounded-xl text-center hover:shadow-md transition-all duration-300 hover:scale-105'
-                >
-                  <span className='text-gray-800 dark:text-white font-medium text-sm'>
-                    {skill}
-                  </span>
-                </div>
-              ))}
+              {aboutData.skills.map(
+                (skill: any, index: Key | null | undefined) => (
+                  <div
+                    key={index}
+                    className='bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 px-4 py-3 rounded-xl text-center hover:shadow-md transition-all duration-300 hover:scale-105'
+                  >
+                    <span className='text-gray-800 dark:text-white font-medium text-sm'>
+                      {skill}
+                    </span>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </div>
@@ -247,4 +250,20 @@ export default async function AboutPage() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/about`, {
+    cache: 'no-store',
+  });
+  const { data } = await res.json();
+  return {
+    title: data.title,
+    description: data.bio,
+    openGraph: {
+      title: data.title,
+      description: data.bio,
+      images: [data.picture],
+    }
+  };
 }

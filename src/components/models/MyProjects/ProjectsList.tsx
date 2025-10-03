@@ -8,19 +8,27 @@ import Swal from 'sweetalert2';
 import AddProjectForm from './AddProjectForm';
 export default function ProjectsList({
   viewMode,
-  searchTerm,
+  filter,
   setShowAddForm,
-  showAddForm
+  showAddForm,
 }: ProjectsListProps) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
-
+  console.log(filter);
   useEffect(() => {
     setLoading(true);
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/projects`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/projects/my-projects?search=${
+            filter.search
+          }&${filter.status !== 'all' ? `status=${filter.status}` : ''}`,
+          {
+            method: 'GET',
+            credentials: 'include',
+          }
+        );
         const data = await res.json();
         console.log(data);
         setProjects(data?.data);
@@ -31,7 +39,7 @@ export default function ProjectsList({
       }
     };
     fetchProjects();
-  }, [setLoading]);
+  }, [setLoading, filter]);
 
   const handleEdit = (project: Project) => {
     setEditingProject(project);
@@ -98,17 +106,17 @@ export default function ProjectsList({
     );
   }
 
-  if (projects.length === 0) {
+  if (projects?.length === 0) {
     return (
       <div className='text-center py-12'>
         <div className='w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4'>
           <Eye className='h-12 w-12 text-gray-400' />
         </div>
         <h3 className='text-lg font-medium text-gray-900 dark:text-white mb-2'>
-          {searchTerm ? 'No projects found' : 'No projects yet'}
+          {filter.search ? 'No projects found' : 'No projects yet'}
         </h3>
         <p className='text-gray-500 dark:text-gray-400'>
-          {searchTerm
+          {filter.search
             ? 'Try adjusting your search terms'
             : 'Create your first project to get started'}
         </p>
@@ -127,7 +135,7 @@ export default function ProjectsList({
         }
       `}
       >
-        {projects.map((project) => (
+        {projects?.map((project) => (
           <ProjectCard
             key={project.id}
             project={project}
@@ -138,15 +146,15 @@ export default function ProjectsList({
         ))}
       </div>
 
-       {/* Add Project Modal */}
-        {showAddForm && (
-          <AddProjectForm
-            onClose={() => setShowAddForm(false)}
-            onAdd={(project) => {
-              setProjects((prev) => [...prev, project]);
-            }}
-          />
-        )}
+      {/* Add Project Modal */}
+      {showAddForm && (
+        <AddProjectForm
+          onClose={() => setShowAddForm(false)}
+          onAdd={(project) => {
+            setProjects((prev) => [...prev, project]);
+          }}
+        />
+      )}
 
       {editingProject && (
         <UpdateProjectForm
