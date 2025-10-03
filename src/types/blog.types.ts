@@ -39,3 +39,10 @@ export interface BlogFilters {
   status?: 'draft' | 'published' | 'all';
   search?: string;
 }
+
+
+export interface BlogCardProps {
+  blog: BlogPost;
+  onEdit: (blog: BlogPost) => void;
+  onDelete: (id: number) => void;
+}

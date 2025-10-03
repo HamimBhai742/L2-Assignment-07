@@ -2,7 +2,6 @@ import Herosection from '@/components/models/Home/Herosection';
 import AboutSection from '@/components/models/Home/AboutSection';
 import ProjectSection from '@/components/models/Home/ProjectSection';
 import BlogsSection from '@/components/models/Home/BlogsSection';
-import ContactSection from '@/components/models/Home/ContactSection';
 
 export const metadata = {
   title: 'Hamim | Portfolio & Projects',
@@ -39,8 +38,6 @@ export default async function Home() {
       {/* Latest Blog Posts Section */}
       <BlogsSection blogs={blogs.slice(0, 3)} />
 
-      {/* Contact/CTA Section */}
-      <ContactSection />
     </div>
   );
 }

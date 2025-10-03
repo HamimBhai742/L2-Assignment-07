@@ -1,8 +1,7 @@
 export const getMe = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
-    method: 'GET',
-    next: { revalidate: 30 },
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
+    cache: 'no-store',
   });
-  const user = await res.json();
+  const { data: user } = await res.json();
   return user;
 };

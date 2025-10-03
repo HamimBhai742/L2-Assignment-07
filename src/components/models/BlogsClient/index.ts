@@ -1,5 +1,4 @@
 export { default as BlogsClient } from './BlogsClient';
-export { BlogStats } from './BlogStats';
 export { BlogFilters } from './BlogFilters';
 export { BlogGrid } from './BlogGrid';
 export { BlogCard } from './BlogCard';

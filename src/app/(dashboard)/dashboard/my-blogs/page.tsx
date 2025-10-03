@@ -4,8 +4,6 @@ import { Plus, Grid, List } from 'lucide-react';
 import { BlogPost, BlogFilters as BlogFiltersType } from '@/types/blog.types';
 import { BlogCard } from '@/components/models/MyBlog/BlogCard';
 import { BlogFilters } from '@/components/models/MyBlog/BlogFilters';
-import { BlogStats } from '@/components/models/MyBlog/BlogStats';
-import { BlogPreviewModal } from '@/components/models/MyBlog/BlogPreviewModal';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 
@@ -18,8 +16,6 @@ const MyBlogsPage = () => {
   const router = useRouter();
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [previewBlog, setPreviewBlog] = useState<BlogPost | null>(null);
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [filters, setFilters] = useState<BlogFiltersType>({
     category: '',
     status: 'all',
@@ -88,12 +84,6 @@ const MyBlogsPage = () => {
     });
   };
 
-  const handleView = (blog: BlogPost) => {
-    setPreviewBlog(blog);
-    setIsPreviewOpen(true);
-  };
-
-  console.log(filters);
 
   return (
     <div className='space-y-6'>
@@ -143,10 +133,6 @@ const MyBlogsPage = () => {
           </button>
         </div>
       </div>
-
-      {/* Stats */}
-      <BlogStats blogs={blogs} />
-
       {/* Filters */}
       <BlogFilters filters={filters} onFiltersChange={setFilters} />
 
@@ -186,21 +172,12 @@ const MyBlogsPage = () => {
               blog={blog}
               onEdit={handleEdit}
               onDelete={handleDelete}
-              onView={handleView}
             />
           ))}
         </div>
       )}
 
-      {/* Preview Modal */}
-      <BlogPreviewModal
-        blog={previewBlog}
-        isOpen={isPreviewOpen}
-        onClose={() => {
-          setIsPreviewOpen(false);
-          setPreviewBlog(null);
-        }}
-      />
+
     </div>
   );
 };

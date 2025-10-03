@@ -1,17 +1,12 @@
 'use client';
-import { BlogPost } from '@/types/blog.types';
+import { BlogCardProps  } from '@/types/blog.types';
 import { Calendar, Clock, Edit, Trash2, Eye } from 'lucide-react';
 import { format } from 'timeago.js';
 import Image from 'next/image';
 
-interface BlogCardProps {
-  blog: BlogPost;
-  onEdit: (blog: BlogPost) => void;
-  onDelete: (id: number) => void;
-  onView: (blog: BlogPost) => void;
-}
 
-export const BlogCard = ({ blog, onEdit, onDelete, onView }: BlogCardProps) => {
+
+export const BlogCard = ({ blog, onEdit, onDelete }: BlogCardProps) => {
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -69,7 +64,6 @@ export const BlogCard = ({ blog, onEdit, onDelete, onView }: BlogCardProps) => {
 
           <div className='flex items-center gap-2'>
             <button
-              onClick={() => onView(blog)}
               className='p-2 flex gap-2 items-center  text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors'
               title='View'
             >
