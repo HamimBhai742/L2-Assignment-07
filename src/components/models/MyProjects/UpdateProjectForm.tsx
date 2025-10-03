@@ -57,7 +57,6 @@ export default function UpdateProjectForm({
         }
       );
       const data = await res.json();
-      console.log(data);
       if (data?.success) {
         toast.success(data?.message);
       }

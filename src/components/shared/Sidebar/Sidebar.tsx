@@ -8,7 +8,6 @@ import {
   User,
   FolderOpen,
   BookOpen,
-  Mail,
   Menu,
   X,
   Settings,
@@ -24,7 +23,6 @@ const navigationItems = [
   { name: 'My Projects', href: '/dashboard/my-projects', icon: FolderOpen },
   { name: 'Create Blog', href: '/dashboard/create-blog', icon: BookOpen },
   { name: 'My Blogs', href: '/dashboard/my-blogs', icon: Book },
-  { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
 
 export default function Sidebar() {
@@ -32,6 +30,8 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
+
+
 
   return (
     <>

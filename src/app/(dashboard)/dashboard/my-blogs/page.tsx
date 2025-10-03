@@ -1,6 +1,5 @@
 'use client';
-
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Grid, List } from 'lucide-react';
 import { BlogPost, BlogFilters as BlogFiltersType } from '@/types/blog.types';
 import { BlogCard } from '@/components/models/MyBlog/BlogCard';
@@ -8,7 +7,7 @@ import { BlogFilters } from '@/components/models/MyBlog/BlogFilters';
 import { BlogStats } from '@/components/models/MyBlog/BlogStats';
 import { BlogPreviewModal } from '@/components/models/MyBlog/BlogPreviewModal';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 // export const metadata = {
 //   title: 'My Blogs',
@@ -51,9 +50,42 @@ const MyBlogsPage = () => {
     router.push(`/dashboard/update-blog/${blog.id}`);
   };
 
-  const handleDelete = (id: string) => {
-    // Implement delete functionality
-    toast.success('Blog deleted successfully');
+  const handleDelete = (id: number) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/blog/delete/${id}`,
+          {
+            method: 'DELETE',
+            credentials: 'include',
+          }
+        );
+        const data = await res.json();
+        if (data?.success) {
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Your file has been deleted.',
+            icon: 'success',
+          });
+        }
+        if (!data?.success) {
+          Swal.fire({
+            title: 'Failed!',
+            text: 'Your file has been deleted failed.',
+            icon: 'error',
+          });
+        }
+        setBlogs((prev) => prev.filter((p) => Number(p.id) !== id));
+      }
+    });
   };
 
   const handleView = (blog: BlogPost) => {
