@@ -1,4 +1,4 @@
-# Portfolio Website - Assignment 07
+# My Portfolio Website – Requirements (NextJS + Prisma + ExpressJS)
 
 A modern, full-stack portfolio website built with Next.js 15, featuring a personal blog, project showcase, and admin dashboard for content management.
 
@@ -65,7 +65,7 @@ This is a comprehensive portfolio website that serves as both a personal showcas
 ## 🚀 Setup Instructions
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 18+
 - npm, yarn, pnpm, or bun
 
 ### Installation
@@ -143,20 +143,10 @@ src/
 
 ## 📝 Additional Notes
 
-### Development Features
-- **Hot Reload** - Instant updates during development
-- **TypeScript Support** - Full type safety across the application
-- **Component Architecture** - Modular and reusable component structure
-- **Responsive Design** - Mobile-first approach with Tailwind CSS
-
 ### Deployment
 - **Vercel Deployment** - Optimized for Vercel platform
 - **Environment Variables** - Secure configuration management
 - **Static Assets** - Optimized image and asset delivery
-
-### Browser Support
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- Mobile browsers (iOS Safari, Chrome Mobile)
 
 ### Performance Optimizations
 - Image optimization with Next.js Image component
@@ -167,3 +157,5 @@ src/
 ---
 
 **Built with ❤️ using Next.js 15 and modern web technologies**
+
+**Built By Hamim ❤️ **
