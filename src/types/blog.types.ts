@@ -1,6 +1,6 @@
 export interface BlogFormData {
   title: string;
-  status: 'draft' | 'published';
+  status: 'draft' | 'published'|'';
   content: string;
   description: string;
   category: string;

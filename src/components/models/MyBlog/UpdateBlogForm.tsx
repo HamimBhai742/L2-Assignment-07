@@ -10,6 +10,7 @@ import { getMyUpdateBlog } from '@/actions/myBlogs';
 import { updateMyBlog } from '@/actions/myBlogUpById';
 import Loding from './Loding';
 import UploadCloudinary from '@/upload/UploadCloudinary';
+import { ImSpinner9 } from 'react-icons/im';
 
 interface UpdateBlogFormProps {
   blogId: string;
@@ -87,6 +88,7 @@ export const UpdateBlogForm = ({ blogId }: UpdateBlogFormProps) => {
   };
 
   const onSubmit = async (data: BlogFormData) => {
+    console.log(data);
     setIsSubmitting(true);
     try {
       if (data?.thumbnail && typeof data?.thumbnail !== 'string') {
@@ -369,7 +371,14 @@ export const UpdateBlogForm = ({ blogId }: UpdateBlogFormProps) => {
                 className='flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50'
               >
                 <Save className='w-4 h-4' />
-                {isSubmitting ? 'Updating...' : 'Update Blog'}
+                {isSubmitting ? (
+                  <span className='flex items-center gap-2'>
+                    <ImSpinner9 className='animate-spin h-5 w-5' />
+                    <span>Updating...</span>
+                  </span>
+                ) : (
+                  'Update Blog'
+                )}
               </button>
             </div>
           </div>

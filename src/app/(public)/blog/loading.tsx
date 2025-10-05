@@ -3,7 +3,7 @@ import React from 'react';
 
 const BlogCardLoading = () => {
   return (
-    <div>
+    <div className='pt-16'>
       <CardSkeleton/>
     </div>
   );

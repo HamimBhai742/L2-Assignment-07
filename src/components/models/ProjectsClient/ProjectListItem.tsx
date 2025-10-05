@@ -104,8 +104,8 @@ const ProjectListItem = ({ project }: ProjectListItemProps) => {
               Features:
             </h4>
             <ul className='text-xs text-gray-600 dark:text-gray-400 list-disc list-inside ml-3'>
-              {features.map((feature) => (
-                <li key={feature}>{feature}</li>
+              {features?.map((feature,idx) => (
+                <li key={idx}>{feature}</li>
               ))}
             </ul>
           </div>
