@@ -16,10 +16,9 @@ import { Key } from 'react';
 
 export default async function AboutPage() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/about`, {
-    cache: 'no-store',
+    cache: 'force-cache',
   });
   const { data: aboutData } = await res.json();
-  console.log(aboutData);
   return (
     <div className='min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800'>
       <div className='container mx-auto px-4 py-20'>
