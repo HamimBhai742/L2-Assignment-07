@@ -158,11 +158,11 @@ export default function CreateBlogForm() {
               <textarea
                 {...register('description', {
                   required: 'Description is required',
-                  min: {
+                  minLength: {
                     value: 50,
                     message: 'Description must be at least 50 characters',
                   },
-                  max: {
+                  maxLength: {
                     value: 200,
                     message: 'Description must be at less than 200 characters',
                   },
@@ -294,6 +294,12 @@ export default function CreateBlogForm() {
                     </div>
                   )}
                 </div>
+
+                {errors.thumbnail && (
+                  <p className='text-red-500 text-sm'>
+                    {errors.thumbnail.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -305,14 +311,14 @@ export default function CreateBlogForm() {
               <textarea
                 {...register('content', {
                   required: 'Content is required',
-                  min: {
+                  minLength: {
                     value: 100,
                     message: 'Content must be at least 100 characters',
                   },
                 })}
                 rows={15}
                 className='w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none transition-all duration-200 font-mono text-sm leading-relaxed'
-                placeholder='Write your blog content here....'
+                placeholder='Write your blog content here miminum 100 characters...'
               />
               {errors.content && (
                 <p className='text-red-500 text-sm'>{errors.content.message}</p>
