@@ -48,24 +48,26 @@ const ProjectListItem = ({ project }: ProjectListItemProps) => {
                 <h3 className='text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
                   {project.title}
                 </h3>
-                <div className='flex items-center gap-2'>
-                  <Link
-                    href={project.liveUrl}
-                    target='_blank'
-                    className='text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors'
-                    title='Live Demo'
-                  >
-                    <FiExternalLink className='w-5 h-5' />
-                  </Link>
-                  <Link
-                    href={project.githubUrl}
-                    target='_blank'
-                    className='text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors'
-                    title='GitHub Repository'
-                  >
-                    <FiGithub className='w-5 h-5' />
-                  </Link>
-                </div>
+                {project?.status !== 'planned' && (
+                  <div className='flex items-center gap-2'>
+                    <Link
+                      href={project?.liveUrl || '#'}
+                      target='_blank'
+                      className='text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors'
+                      title='Live Demo'
+                    >
+                      <FiExternalLink className='w-5 h-5' />
+                    </Link>
+                    <Link
+                      href={project?.githubUrl || '#'}
+                      target='_blank'
+                      className='text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors'
+                      title='GitHub Repository'
+                    >
+                      <FiGithub className='w-5 h-5' />
+                    </Link>
+                  </div>
+                )}
               </div>
               <div className='flex items-center gap-3 mb-2'>
                 <span
@@ -87,14 +89,14 @@ const ProjectListItem = ({ project }: ProjectListItemProps) => {
               <div>
                 {formatDate(project.startDate)} -{' '}
                 {project.endDate
-                  ? formatDate(project.endDate)
-                  : formatStatusLabel(project.status)}
+                  ? formatDate(project?.endDate)
+                  : formatStatusLabel(project?.status)}
               </div>
             </div>
           </div>
 
           <p className='text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2'>
-            {project.description}
+            {project?.description}
           </p>
 
           <div className='mb-3'>

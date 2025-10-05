@@ -62,24 +62,26 @@ export default function ProjectSection({ projects }: { projects: Project[] }) {
                     </span>
                   ))}
                 </div>
-                <div className='flex items-center gap-4 pl-3 mt-3'>
-                  <Link
-                    href={project.liveUrl}
-                    target='_blank'
-                    className='text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors'
-                    title='Live Demo'
-                  >
-                    <FiExternalLink className='w-5 h-5' />
-                  </Link>
-                  <Link
-                    href={project.githubUrl}
-                    target='_blank'
-                    className='text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors'
-                    title='GitHub Repository'
-                  >
-                    <FiGithub className='w-5 h-5' />
-                  </Link>
-                </div>
+                {project.status !== 'planned' && (
+                  <div className='flex items-center gap-4 pl-3 mt-3'>
+                    <Link
+                      href={project?.liveUrl || '#'}
+                      target='_blank'
+                      className='text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors'
+                      title='Live Demo'
+                    >
+                      <FiExternalLink className='w-5 h-5' />
+                    </Link>
+                    <Link
+                      href={project?.githubUrl || '#'}
+                      target='_blank'
+                      className='text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors'
+                      title='GitHub Repository'
+                    >
+                      <FiGithub className='w-5 h-5' />
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           ))}
