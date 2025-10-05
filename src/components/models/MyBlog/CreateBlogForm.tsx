@@ -158,14 +158,18 @@ export default function CreateBlogForm() {
               <textarea
                 {...register('description', {
                   required: 'Description is required',
-                  maxLength: {
+                  min: {
+                    value: 50,
+                    message: 'Description must be at least 50 characters',
+                  },
+                  max: {
                     value: 200,
-                    message: 'Description must be less than 200 characters',
+                    message: 'Description must be at less than 200 characters',
                   },
                 })}
                 rows={3}
                 className='w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none transition-all duration-200'
-                placeholder='Write a compelling description that summarizes your post...'
+                placeholder='Write a compelling description that summarizes your blog...'
               />
               {errors.description && (
                 <p className='text-red-500 text-sm'>
@@ -301,10 +305,10 @@ export default function CreateBlogForm() {
               <textarea
                 {...register('content', {
                   required: 'Content is required',
-                  // minLength: {
-                  //   value: 100,
-                  //   message: 'Content must be at least 100 characters',
-                  // },
+                  min: {
+                    value: 100,
+                    message: 'Content must be at least 100 characters',
+                  },
                 })}
                 rows={15}
                 className='w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none transition-all duration-200 font-mono text-sm leading-relaxed'
