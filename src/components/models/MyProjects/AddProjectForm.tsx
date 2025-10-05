@@ -197,52 +197,6 @@ export default function AddProjectForm({
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             <div>
               <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
-                Live URL *
-              </label>
-              <div className='relative'>
-                <LinkIcon className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
-                <input
-                  type='url'
-                  required
-                  value={formData.liveUrl}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      liveUrl: e.target.value,
-                    }))
-                  }
-                  className='w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
-                  placeholder='https://example.com'
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
-                GitHub URL *
-              </label>
-              <div className='relative'>
-                <LinkIcon className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
-                <input
-                  type='url'
-                  required
-                  value={formData.githubUrl}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      githubUrl: e.target.value,
-                    }))
-                  }
-                  className='w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
-                  placeholder='https://github.com/username/repo'
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            <div>
-              <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
                 Status *
               </label>
               <select
@@ -310,6 +264,52 @@ export default function AddProjectForm({
               </div>
             )}
           </div>
+
+          {formData.status !== 'planned' && (
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+              <div>
+                <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
+                  Live URL
+                </label>
+                <div className='relative'>
+                  <LinkIcon className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
+                  <input
+                    type='url'
+                    value={formData.liveUrl}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        liveUrl: e.target.value,
+                      }))
+                    }
+                    className='w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
+                    placeholder='https://example.com'
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
+                  GitHub URL
+                </label>
+                <div className='relative'>
+                  <LinkIcon className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
+                  <input
+                    type='url'
+                    value={formData.githubUrl}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        githubUrl: e.target.value,
+                      }))
+                    }
+                    className='w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
+                    placeholder='https://github.com/username/repo'
+                  />
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className='mt-4'>
             <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
