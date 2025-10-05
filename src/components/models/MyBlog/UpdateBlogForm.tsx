@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { BlogFormData,  blogCategories } from '@/types/blog.types';
+import { BlogFormData, blogCategories } from '@/types/blog.types';
 import toast from 'react-hot-toast';
 import { Save, X, Plus, Upload } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -258,27 +258,24 @@ export const UpdateBlogForm = ({ blogId }: UpdateBlogFormProps) => {
             </div>
 
             <div className='grid md:grid-cols-2 lg:grid-cols-1 gap-4'>
-              {/* Category */}
+              {/* status */}
               <div className='bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700'>
                 <h3 className='text-lg font-semibold text-gray-900 dark:text-white mb-4'>
-                  Category
+                  Status
                 </h3>
                 <select
-                  {...register('category', {
+                  {...register('status', {
                     required: 'Category is required',
                   })}
                   className='w-full select px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                 >
-                  <option value=''>Select Category</option>
-                  {blogCategories.map((category) => (
-                    <option key={category} value={category}>
-                      {category.replace('_', ' ')}
-                    </option>
-                  ))}
+                  <option value=''>Select Status</option>
+                  <option value='published'>Published</option>
+                  <option value='draft'>Draft</option>
                 </select>
-                {errors.category && (
+                {errors.status && (
                   <p className='text-red-500 text-sm mt-1'>
-                    {errors.category.message}
+                    {errors.status.message}
                   </p>
                 )}
               </div>

@@ -8,6 +8,7 @@ import { Plus, X, Image as FileText, Upload } from 'lucide-react';
 import UploadCloudinary from '@/upload/UploadCloudinary';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { ImSpinner9 } from 'react-icons/im';
 
 export default function CreateBlogForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -334,8 +335,8 @@ export default function CreateBlogForm() {
               >
                 {isSubmitting ? (
                   <div className='flex items-center justify-center'>
-                    <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2'></div>
-                    Creating...
+                    <ImSpinner9 className='animate-spin h-5 w-5' />
+                    <span className='ml-2'>Posting...</span>
                   </div>
                 ) : (
                   ' Blog Post'

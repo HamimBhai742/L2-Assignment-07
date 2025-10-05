@@ -48,7 +48,7 @@ export default function ProjectsList({
   const handleUpdate = (updatedProject: Project) => {
     setLoading(false);
     setProjects((prev) =>
-      prev.map((p) => (p.id === updatedProject.id ? updatedProject : p))
+      prev.map((p) => (p?.id === updatedProject?.id ? updatedProject : p))
     );
   };
 

@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import UploadCloudinary from '@/upload/UploadCloudinary';
 import toast from 'react-hot-toast';
 import { Project } from '@/types/projects.type';
+import { ImSpinner9 } from 'react-icons/im';
 
 interface AddProjectFormProps {
   onClose: () => void;
@@ -124,7 +125,7 @@ export default function AddProjectForm({
             </span>
           </div>
 
-            <div className='relative'>
+          <div className='relative'>
             <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
               Features *
             </label>
@@ -363,7 +364,14 @@ export default function AddProjectForm({
               disabled={isSubmitting}
               className='flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed'
             >
-              {isSubmitting ? 'Creating...' : 'Create Project'}
+              {isSubmitting ? (
+                <span className='flex items-center justify-center'>
+                  <ImSpinner9 className='animate-spin h-5 w-5' />
+                  <span className='ml-2'>Creating...</span>
+                </span>
+              ) : (
+                'Create Project'
+              )}
             </button>
           </div>
         </form>

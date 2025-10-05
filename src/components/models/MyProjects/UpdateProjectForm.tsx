@@ -9,6 +9,7 @@ import Image from 'next/image';
 import toast from 'react-hot-toast';
 import DatePicker from 'react-datepicker';
 import UploadCloudinary from '@/upload/UploadCloudinary';
+import { ImSpinner9 } from 'react-icons/im';
 
 interface UpdateProjectFormProps {
   project: Project;
@@ -72,8 +73,6 @@ export default function UpdateProjectForm({
       setIsSubmitting(false);
     }
   };
-
-  
 
   return (
     <div className='fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4'>
@@ -247,7 +246,7 @@ export default function UpdateProjectForm({
                 className='w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200'
               >
                 <option value='completed'>Completed</option>
-                <option value='in-progress'>In Progress</option>
+                <option value='in_progress'>In Progress</option>
                 <option value='planned'>Planned</option>
               </select>
             </div>
@@ -377,7 +376,16 @@ export default function UpdateProjectForm({
               className='flex-1 flex items-center justify-center space-x-2 px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed'
             >
               <Save className='h-5 w-5' />
-              <span>{isSubmitting ? 'Updating...' : 'Update Project'}</span>
+              <span>
+                {isSubmitting ? (
+                  <span className='flex items-center gap-2'>
+                    <ImSpinner9 className='animate-spin h-5 w-5' />
+                    <span>Updating...</span>
+                  </span>
+                ) : (
+                  'Update Project'
+                )}
+              </span>
             </button>
           </div>
         </form>
