@@ -253,7 +253,7 @@ export default async function AboutPage() {
 
 export async function generateMetadata() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/about`, {
-    cache: 'no-store',
+    cache: 'force-cache',
   });
   const { data } = await res.json();
   return {

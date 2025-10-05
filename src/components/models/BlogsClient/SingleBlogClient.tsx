@@ -1,13 +1,7 @@
 'use client';
 
 import { BlogPost } from '@/types/blog.types';
-import {
-  Calendar,
-  Clock,
-  Share2,
-  Bookmark,
-  Tag,
-} from 'lucide-react';
+import { Calendar,  Share2, Bookmark, Tag, Eye } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -54,7 +48,7 @@ export const SingleBlogClient = ({ blog }: SingleBlogClientProps) => {
     <div className='min-h-screen bg-gray-50 dark:bg-gray-900'>
       {/* Article */}
       <article className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:pt-20'>
-               {/* Hero Image */}
+        {/* Hero Image */}
         <div className='relative h-64 md:h-96 rounded-2xl overflow-hidden mb-8'>
           <Image
             src={blog.thumbnail}
@@ -75,8 +69,8 @@ export const SingleBlogClient = ({ blog }: SingleBlogClientProps) => {
               <span>{formatDate(blog.createdAt)}</span>
             </div>
             <div className='flex items-center gap-1'>
-              <Clock className='w-4 h-4' />
-              <span>{blog.readTime} min read</span>
+              <Eye className='w-4 h-4' />
+              <span>{blog.views}</span>
             </div>
             <div className='flex items-center gap-1'>
               <Tag className='w-4 h-4' />
