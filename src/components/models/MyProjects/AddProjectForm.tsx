@@ -8,6 +8,7 @@ import UploadCloudinary from '@/upload/UploadCloudinary';
 import toast from 'react-hot-toast';
 import { Project } from '@/types/projects.type';
 import { ImSpinner9 } from 'react-icons/im';
+import { cleanObj } from '@/actions/cleanObj';
 
 interface AddProjectFormProps {
   onClose: () => void;
@@ -52,7 +53,7 @@ export default function AddProjectForm({
             'Content-Type': 'application/json',
           },
           credentials: 'include',
-          body: JSON.stringify(formData),
+          body: JSON.stringify(cleanObj(formData)),
         }
       );
       const data = await res.json();

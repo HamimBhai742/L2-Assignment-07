@@ -81,7 +81,7 @@ export default function Sidebar() {
             <div className='w-10 h-10  flex items-center justify-center'>
               <Image
                 src={
-                  owner.picture ||
+                  owner?.picture ||
                   'https://res.cloudinary.com/dimczn2y6/image/upload/v1759461998/qfxitcnklyqaszpjta5y.jpg'
                 }
                 alt='Profile Picture'
