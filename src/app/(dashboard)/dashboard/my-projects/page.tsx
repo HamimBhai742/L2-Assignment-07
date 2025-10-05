@@ -18,7 +18,6 @@ export default function MyProjectsPage() {
     search: '',
     status: 'all',
   });
-  console.log(filters);
   return (
     <div className='min-h-screen bg-gray-50 dark:bg-gray-900 p-2 lg:p-8'>
       <div className='max-w-7xl mx-auto'>
@@ -45,7 +44,7 @@ export default function MyProjectsPage() {
         </div>
 
         {/* Controls */}
-        <div className='flex items-center gap-4 mb-8'>
+        <div className='flex max-sm:flex-col-reverse sm:items-center gap-4 mb-8'>
           {/* Search */}
           <div className='relative flex-1'>
             <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
@@ -60,46 +59,48 @@ export default function MyProjectsPage() {
             />
           </div>
 
-          {/* Status Filter */}
-          <div>
-            <select
-              value={filters.status || 'all'}
-              onChange={(e) =>
-                setFilters({ ...filters, status: e.target.value as any })
-              }
-              className='px-3 h-12 select py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-            >
-              <option value='all'>All Status</option>
-              <option value='completed'>Completed</option>
-              <option value='in_progress'>In Progress</option>
-              <option value='planned'>Planned</option>
-            </select>
-          </div>
+          <div className='flex items-center justify-between sm:gap-4'>
+            {/* Status Filter */}
+            <div>
+              <select
+                value={filters.status || 'all'}
+                onChange={(e) =>
+                  setFilters({ ...filters, status: e.target.value as any })
+                }
+                className='px-3 h-12 select py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+              >
+                <option value='all'>All Status</option>
+                <option value='completed'>Completed</option>
+                <option value='in_progress'>In Progress</option>
+                <option value='planned'>Planned</option>
+              </select>
+            </div>
 
-          {/* View Toggle */}
-          <div className='flex bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-1'>
-            <button
-              onClick={() => setViewMode('grid')}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
-                viewMode === 'grid'
-                  ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
-              }`}
-            >
-              <Grid3X3 className='h-4 w-4' />
-              <span className='hidden sm:inline'>Grid</span>
-            </button>
-            <button
-              onClick={() => setViewMode('list')}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
-                viewMode === 'list'
-                  ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
-              }`}
-            >
-              <List className='h-4 w-4' />
-              <span className='hidden sm:inline'>List</span>
-            </button>
+            {/* View Toggle */}
+            <div className='flex bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-1'>
+              <button
+                onClick={() => setViewMode('grid')}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                  viewMode === 'grid'
+                    ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                }`}
+              >
+                <Grid3X3 className='h-4 w-4' />
+                <span className='hidden sm:inline'>Grid</span>
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                  viewMode === 'list'
+                    ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                }`}
+              >
+                <List className='h-4 w-4' />
+                <span className='hidden sm:inline'>List</span>
+              </button>
+            </div>
           </div>
         </div>
 

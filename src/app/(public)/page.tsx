@@ -25,7 +25,7 @@ export default async function Home() {
   });
   const { data: projects } = await res3.json();
   return (
-    <div className='min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800'>
+    <div className='min-h-screen bg-gradient-to-br from-slate-50  to-blue-50 dark:from-gray-900 dark:to-gray-800'>
       {/* Hero Section */}
       <Herosection user={user} />
 
@@ -33,10 +33,10 @@ export default async function Home() {
       <AboutSection user={user} />
 
       {/* Featured Projects Section */}
-      <ProjectSection  projects={projects.slice(0, 3)} />
+      <ProjectSection  projects={projects?.slice(0, 3)} />
 
       {/* Latest Blog Posts Section */}
-      <BlogsSection blogs={blogs.slice(0, 3)} />
+      <BlogsSection blogs={blogs?.slice(0, 3)} />
 
     </div>
   );

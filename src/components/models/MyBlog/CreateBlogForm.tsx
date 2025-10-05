@@ -5,7 +5,6 @@ import { BlogFormData, blogCategories } from '@/types/blog.types';
 import { Button } from '@/components/ui/button';
 import toast from 'react-hot-toast';
 import { Plus, X, Image as FileText, Upload } from 'lucide-react';
-import { TiDeleteOutline } from 'react-icons/ti';
 import UploadCloudinary from '@/upload/UploadCloudinary';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -69,7 +68,6 @@ export default function CreateBlogForm() {
         }
       );
       const result = await res.json();
-      console.log(result);
       if (result?.success) {
         toast.success(result?.message);
         reset();
@@ -285,9 +283,9 @@ export default function CreateBlogForm() {
 
                       <span
                         onClick={() => setThumb(null)}
-                        className='absolute top-1 right-1 hover:cursor-pointer'
+                        className='absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors'
                       >
-                        <TiDeleteOutline className=' text-3xl text-white dark:text-gray-400' />
+                        <X className='w-4 h-4 text-white' />
                       </span>
                     </div>
                   )}

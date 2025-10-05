@@ -6,6 +6,7 @@ import { BlogCard } from '@/components/models/MyBlog/BlogCard';
 import { BlogFilters } from '@/components/models/MyBlog/BlogFilters';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
+import CardSkeleton from '@/components/shared/CardSkelton/CardSkleton';
 
 // export const metadata = {
 //   title: 'My Blogs',
@@ -15,6 +16,7 @@ import Swal from 'sweetalert2';
 const MyBlogsPage = () => {
   const router = useRouter();
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [filters, setFilters] = useState<BlogFiltersType>({
     category: '',
@@ -23,6 +25,7 @@ const MyBlogsPage = () => {
   });
 
   useEffect(() => {
+    setLoading(true);
     const myBlogs = async () => {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/blog/my-blogs?${
@@ -36,8 +39,10 @@ const MyBlogsPage = () => {
         }
       );
       const data = await res.json();
-      setBlogs(data?.data);
-      console.log(data);
+      if (data?.success) {
+        setLoading(false);
+        setBlogs(data?.data);
+      }
     };
     myBlogs();
   }, [filters]);
@@ -84,6 +89,9 @@ const MyBlogsPage = () => {
     });
   };
 
+  if(loading) {
+    return <CardSkeleton/>
+  }
 
   return (
     <div className='space-y-6'>
@@ -176,8 +184,6 @@ const MyBlogsPage = () => {
           ))}
         </div>
       )}
-
-
     </div>
   );
 };

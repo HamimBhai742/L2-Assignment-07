@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 }
 
 export default async function SingleBlogPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug } =  params;
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog/${slug}`);
   const { data: blog } = await res.json();
   if (!blog) {
@@ -28,7 +28,7 @@ export default async function SingleBlogPage({ params }: PageProps) {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug } =  params;
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog/${slug}`);
   const { data: blog } = await res.json();
   if (!blog) {

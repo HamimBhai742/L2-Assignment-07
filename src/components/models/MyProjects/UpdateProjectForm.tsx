@@ -35,6 +35,7 @@ export default function UpdateProjectForm({
     status: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -71,6 +72,8 @@ export default function UpdateProjectForm({
       setIsSubmitting(false);
     }
   };
+
+  
 
   return (
     <div className='fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4'>

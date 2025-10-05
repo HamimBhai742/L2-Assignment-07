@@ -94,7 +94,6 @@ export const UpdateBlogForm = ({ blogId }: UpdateBlogFormProps) => {
           thumbnail: data.thumbnail[0],
         });
       }
-      console.log(data);
 
       const result = await updateMyBlog(blogId, data);
       if (result?.success) {

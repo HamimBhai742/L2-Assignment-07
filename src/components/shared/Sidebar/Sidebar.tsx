@@ -40,7 +40,6 @@ export default function Sidebar() {
     owner();
   }, [setOwner]);
 
-  console.log(owner);
   return (
     <>
       {/* Mobile Menu Button */}

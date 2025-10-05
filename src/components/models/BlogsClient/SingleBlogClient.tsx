@@ -4,7 +4,6 @@ import { BlogPost } from '@/types/blog.types';
 import {
   Calendar,
   Clock,
-  ArrowLeft,
   Share2,
   Bookmark,
   Tag,

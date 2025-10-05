@@ -1,5 +1,5 @@
 import { BlogPost } from '@/types/blog.types';
-import { Calendar, Clock, ArrowRight, Eye } from 'lucide-react';
+import {  Clock, ArrowRight, Eye } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { format } from 'timeago.js';
@@ -9,14 +9,6 @@ interface BlogCardProps {
 }
 
 export const BlogCard = ({ blog }: BlogCardProps) => {
-  const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
-  };
-
   return (
     <article className='bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 group'>
       {/* Thumbnail */}

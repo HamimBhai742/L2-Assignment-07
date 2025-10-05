@@ -34,8 +34,8 @@ export default async function AboutPage() {
               <div className='flex flex-col md:flex-row items-center md:items-end -mt-20 mb-8'>
                 <div className='relative'>
                   <Image
-                    src={aboutData.picture}
-                    alt={aboutData.name}
+                    src={aboutData?.picture}
+                    alt={aboutData?.name}
                     width={160}
                     height={160}
                     className='w-40 h-40 rounded-full border-8 border-white dark:border-gray-800 shadow-xl object-cover'
@@ -45,7 +45,7 @@ export default async function AboutPage() {
 
                 <div className='md:ml-8 mt-4 md:mt-0 text-center md:text-left'>
                   <h1 className='text-4xl font-bold text-gray-900 dark:text-white mb-2'>
-                    {aboutData.name}
+                    {aboutData?.name}
                   </h1>
                   <p className='text-xl text-blue-600 dark:text-blue-400 font-semibold mb-2'>
                     {snakeToProfession(aboutData.profession)}
@@ -74,7 +74,7 @@ export default async function AboutPage() {
                       Phone
                     </p>
                     <p className='text-gray-900 dark:text-white font-medium'>
-                      {aboutData.phone}
+                      {aboutData?.phone}
                     </p>
                   </div>
                 </div>
@@ -86,7 +86,7 @@ export default async function AboutPage() {
                       Location
                     </p>
                     <p className='text-gray-900 dark:text-white font-medium'>
-                      {aboutData.address}
+                      {aboutData?.address}
                     </p>
                   </div>
                 </div>
@@ -105,7 +105,7 @@ export default async function AboutPage() {
               </h2>
             </div>
             <p className='text-gray-700 dark:text-gray-300 leading-relaxed text-lg'>
-              {aboutData.bio}
+              {aboutData?.bio}
             </p>
           </div>
         </div>

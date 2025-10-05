@@ -90,7 +90,6 @@ export default function ProfilePage() {
         }
       );
       const data = await res.json();
-      console.log(data);
       if (data?.success) {
         setIsUploading(false);
         setProfileData(data?.data);
@@ -548,7 +547,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Stats Section */}
-          
+
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ export default function AboutSection({ user }: { user: User }) {
               </span>
             </div>
             <p className='text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto'>
-             {user.bio.slice(0, 146)}...
+             {user?.bio?.slice(0, 146)}...
             </p>
           </div>
 

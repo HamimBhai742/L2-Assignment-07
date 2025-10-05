@@ -55,7 +55,6 @@ export default function AddProjectForm({
         }
       );
       const data = await res.json();
-      console.log(data);
       if (data?.success) {
         onAdd(data?.data);
         toast.success(data?.message);
