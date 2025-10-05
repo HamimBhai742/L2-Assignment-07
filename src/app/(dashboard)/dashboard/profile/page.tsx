@@ -70,6 +70,7 @@ export default function ProfilePage() {
   };
 
   const handleSave = async () => {
+    console.log(editData)
     setIsUploading(true);
     try {
       const thumbnailUrl = await UploadCloudinary({
@@ -358,6 +359,28 @@ export default function ProfilePage() {
                       }
                     )}
                   </span>
+                </div>
+
+                <div className='flex items-center space-x-3'>
+                  <Calendar className='h-5 w-5 text-gray-400' />
+                  {isEditing ? (
+                    <input
+                      type='text'
+                      value={editData.experience}
+                      onChange={(e) =>
+                        setEditData((prev) => ({
+                          ...prev,
+                          experience: e.target.value,
+                        }))
+                      }
+                      className='flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
+                      placeholder=' experience'
+                    />
+                  ) : (
+                    <span className='text-gray-700 dark:text-gray-300 text-sm'>
+                      {profileData.experience} 
+                    </span>
+                  )}
                 </div>
               </div>
 

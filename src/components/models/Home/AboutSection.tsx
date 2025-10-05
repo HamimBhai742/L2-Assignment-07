@@ -23,14 +23,14 @@ export default function AboutSection({ user }: { user: User }) {
               </span>
             </div>
             <p className='text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto'>
-             {user?.bio?.slice(0, 146)}...
+              {user?.bio?.slice(0, 146)}...
             </p>
           </div>
 
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto'>
             <div className='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow'>
               <div className='text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2'>
-                50+
+                {user?.projects?.length || 0} +
               </div>
               <div className='text-gray-600 dark:text-gray-300'>
                 Projects Completed
@@ -38,7 +38,7 @@ export default function AboutSection({ user }: { user: User }) {
             </div>
             <div className='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow'>
               <div className='text-3xl font-bold text-green-600 dark:text-green-400 mb-2'>
-                5+
+                {user.experience} +
               </div>
               <div className='text-gray-600 dark:text-gray-300'>
                 Years Experience

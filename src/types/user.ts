@@ -5,4 +5,6 @@ export  interface User {
   bio: string;
   skills: string[];
   profession: string;
+  projects:string[];
+  experience: string;
 }
