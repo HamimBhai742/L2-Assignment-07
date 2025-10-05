@@ -14,7 +14,7 @@ export default async function Home() {
     cache: 'no-store',
   });
   const { data: user } = await res.json();
-
+console.log(user)
   const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog`, {
     cache: 'no-store',
   });

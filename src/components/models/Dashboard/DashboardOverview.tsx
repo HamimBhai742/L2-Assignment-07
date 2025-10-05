@@ -77,6 +77,24 @@ export default function DashboardOverview({ stats }: DashboardOverviewProps) {
       color: 'bg-orange-500',
     },
     {
+      title: 'Completed Projects',
+      value: stats.totalCompltedProjects,
+      icon: 'CheckCircle',
+      color: 'bg-green-500',
+    },
+    {
+      title: 'In Progress Projects',
+      value: stats.totalInProgressProjects,
+      icon: 'Clock',
+      color: 'bg-blue-500',
+    },
+    {
+      title: 'Planned Projects',
+      value: stats.totalPlannedProjects,
+      icon: 'Calendar',
+      color: 'bg-purple-500',
+    },
+    {
       title: 'This Week Projects',
       value: stats.lastWeekProjects,
       icon: 'Plus',
@@ -179,7 +197,7 @@ export default function DashboardOverview({ stats }: DashboardOverviewProps) {
           <ActivityChart stats={stats} />
         </div>
         <div className='bg-gradient-to-br from-white to-blue-50 dark:from-gray-800 dark:to-blue-900/20 rounded-3xl p-8 shadow-xl border-2 border-blue-100 dark:border-blue-800/30'>
-          <h3 className='text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center'>
+          <h3 className='text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center'>
             <div className='w-3 h-3 bg-gradient-to-r from-green-400 to-blue-500 rounded-full mr-3 animate-pulse'></div>
             Recent Activity
           </h3>
